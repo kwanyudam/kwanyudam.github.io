@@ -20,19 +20,14 @@ author_profile: true
 
 처음에는 별로 읽고 싶지 않았다.
 
----
 
 ## Skeptic
 
 반면 어쩌구 저쩌구
 
----
 
 ## Frog
 
 
----
 
 ## Bird
-
----
