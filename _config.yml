@@ -21,6 +21,12 @@ plugins:
   - jekyll-gist
   - jekyll-feed
 
+# Collections
+collections:
+  pages:
+    output: true
+    permalink: /:path/
+
 # Defaults
 defaults:
   - scope:
