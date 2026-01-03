@@ -1,16 +1,15 @@
 ---
 title: Books
-author: Kwanyu Kim
-date: 2026-01-03
-category: Reading
-layout: post
+permalink: /books/
+layout: single
+author_profile: true
 ---
 
 A collection of books I've read, currently reading, or recommend. Explore my reading journey across various genres and topics.
 
 ## Currently Reading
 
-- Add your current books here
+- [편안함의 습격 (The Comfort Crisis)](/books/comfort-crisis/)
 
 ## Recommended
 

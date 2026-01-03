@@ -1,9 +1,8 @@
 ---
 title: 편안함의 습격
-author: Kwanyu Kim
-date: 2026-01-03
-category: Reading
-layout: post
+permalink: /books/comfort-crisis/
+layout: single
+author_profile: true
 ---
 
 - 시작일 : 2025-01-01

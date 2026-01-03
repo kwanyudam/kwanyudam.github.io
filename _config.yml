@@ -1,19 +1,31 @@
 title: Kwan Yu Kim from KOR
 description: Personal homepage for Kwanyu Kim, from South Korea.
+url: https://kwanyudam.github.io
+baseurl: ""
 
 # Theme settings
-remote_theme: sighingnow/jekyll-gitbook
+remote_theme: mmistakes/minimal-mistakes@4.27.3
 
-# Collections
-collections:
-  pages:
-    output: true
-    permalink: /:collection/:path/
-
-# Sidebar order
-ordered_collections:
-  - pages
+# Site Author
+author:
+  name: "Kwanyu Kim"
+  bio: "Personal homepage"
+  location: "South Korea"
 
 # Plugins
 plugins:
   - jekyll-remote-theme
+  - jekyll-include-cache
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-gist
+  - jekyll-feed
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: pages
+    values:
+      layout: single
+      author_profile: true
