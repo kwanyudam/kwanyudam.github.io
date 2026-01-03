@@ -6,8 +6,6 @@ category: Reading
 layout: post
 ---
 
-# Books
-
 A collection of books I've read, currently reading, or recommend. Explore my reading journey across various genres and topics.
 
 ## Currently Reading
