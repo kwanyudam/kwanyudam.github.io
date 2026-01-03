@@ -1,0 +1,9 @@
+title: add:Homepage for Kwanyu Kim
+description: Personal homepage for Kwanyu Kim
+
+# Theme settings
+remote_theme: sighingnow/jekyll-gitbook
+
+# Plugins
+plugins:
+  - jekyll-remote-theme
