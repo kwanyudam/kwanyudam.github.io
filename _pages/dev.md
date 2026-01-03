@@ -1,7 +1,7 @@
 ---
-layout: page
 title: Dev
-permalink: /dev/
+author: Kwanyu Kim
+date: 2026-01-03
 ---
 
 # Dev

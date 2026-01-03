@@ -1,7 +1,7 @@
 ---
-layout: page
 title: Management
-permalink: /management/
+author: Kwanyu Kim
+date: 2026-01-03
 ---
 
 # Management

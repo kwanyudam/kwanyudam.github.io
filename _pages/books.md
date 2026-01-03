@@ -1,7 +1,7 @@
 ---
-layout: page
 title: Books
-permalink: /books/
+author: Kwanyu Kim
+date: 2026-01-03
 ---
 
 # Books

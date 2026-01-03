@@ -4,6 +4,16 @@ description: Personal homepage for Kwanyu Kim, from South Korea.
 # Theme settings
 remote_theme: sighingnow/jekyll-gitbook
 
+# Collections
+collections:
+  pages:
+    output: true
+    permalink: /:collection/:name
+
+# Sidebar order
+ordered_collections:
+  - pages
+
 # Plugins
 plugins:
   - jekyll-remote-theme
