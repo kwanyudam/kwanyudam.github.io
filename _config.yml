@@ -8,7 +8,7 @@ remote_theme: sighingnow/jekyll-gitbook
 collections:
   pages:
     output: true
-    permalink: /:collection/:name
+    permalink: /:collection/:path/
 
 # Sidebar order
 ordered_collections:

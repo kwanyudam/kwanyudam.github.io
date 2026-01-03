@@ -2,6 +2,8 @@
 title: Management
 author: Kwanyu Kim
 date: 2026-01-03
+category: Leadership
+layout: post
 ---
 
 # Management
