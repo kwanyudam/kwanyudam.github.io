@@ -6,8 +6,6 @@ category: Leadership
 layout: post
 ---
 
-# Management
-
 Insights and notes on leadership, team management, and organizational development. Reflections on building and managing effective teams.
 
 ## Leadership
