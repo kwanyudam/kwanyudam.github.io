@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>호주 신혼여행 · 2026.10.06 ~ 10.18</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐨</text></svg>">
+<style>
+  :root{
+    --syd:#2563eb;   /* 시드니 */
+    --gc:#ea8a2c;    /* 골드코스트 */
+    --bne:#9333ea;   /* 브리즈번 */
+    --fly:#475569;   /* 이동/귀국 */
+    --ink:#1a1d24;
+    --muted:#6b7280;
+    --bg:#f5f6f8;
+    --card:#ffffff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Malgun Gothic",sans-serif;
+    color:var(--ink);background:var(--bg);line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ===== 상단 진행 바 ===== */
+  .topbar{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    background:rgba(255,255,255,.86);backdrop-filter:blur(14px);
+    border-bottom:1px solid rgba(0,0,0,.07);
+    box-shadow:0 2px 18px rgba(0,0,0,.05);
+  }
+  .topbar-inner{max-width:1080px;margin:0 auto;padding:10px 20px 12px}
+  .tb-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:9px}
+  .tb-day{font-size:13px;font-weight:800;letter-spacing:.04em;color:var(--muted)}
+  .tb-city{font-size:18px;font-weight:800}
+  .tb-date{font-size:13px;color:var(--muted);font-weight:600}
+  .tb-main{font-size:13px;color:var(--ink);margin-left:auto;opacity:.75;font-weight:600;
+           white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:46%}
+
+  /* 도시 구간 + 점 */
+  .track{position:relative;height:34px}
+  .segs{position:absolute;inset:0 0 auto 0;top:13px;display:flex;height:6px;border-radius:6px;overflow:hidden}
+  .seg{height:100%}
+  .seg.syd{background:var(--syd)}
+  .seg.gc{background:var(--gc)}
+  .seg.bne{background:var(--bne)}
+  .seg.fly{background:var(--fly)}
+  .seg{opacity:.22;transition:opacity .3s}
+  .seg.on{opacity:1}
+  /* 진행 점 */
+  .dots{position:absolute;inset:0;display:flex}
+  .dot-wrap{flex:1;display:flex;align-items:center;justify-content:center;position:relative}
+  .dot{width:11px;height:11px;border-radius:50%;background:#cbd0d8;border:2px solid #fff;
+       box-shadow:0 0 0 1px rgba(0,0,0,.06);transition:transform .25s,background .25s;cursor:pointer}
+  .dot.passed{background:#9aa3af}
+  .dot.active{transform:scale(1.55)}
+  .dot.syd.active{background:var(--syd)}
+  .dot.gc.active{background:var(--gc)}
+  .dot.bne.active{background:var(--bne)}
+  .dot.fly.active{background:var(--fly)}
+  .dot-num{position:absolute;top:21px;font-size:9px;font-weight:700;color:var(--muted)}
+  /* 이동 마커 */
+  .transits{position:absolute;inset:0;pointer-events:none}
+  .tmark{position:absolute;top:8px;transform:translateX(-50%);width:18px;height:18px;border-radius:50%;
+         background:#fff;border:2px solid var(--fly);display:flex;align-items:center;justify-content:center;
+         font-size:9px;line-height:1;pointer-events:auto;cursor:pointer;z-index:3;
+         box-shadow:0 1px 4px rgba(0,0,0,.18);transition:transform .25s,border-color .25s}
+  .tmark:hover{transform:translateX(-50%) scale(1.18)}
+  .tmark.active{transform:translateX(-50%) scale(1.35);border-color:var(--ink)}
+  .city-labels{display:flex;margin-top:5px}
+  .cl{flex:1;text-align:center;font-size:10.5px;font-weight:800;letter-spacing:.02em;color:#a7adb8;
+      text-transform:uppercase;transition:color .3s}
+  .cl.syd.on{color:var(--syd)} .cl.gc.on{color:var(--gc)}
+  .cl.bne.on{color:var(--bne)} .cl.fly.on{color:var(--fly)}
+
+  /* ===== 본문 ===== */
+  main{max-width:1080px;margin:0 auto;padding:0 20px}
+  .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;
+        padding:160px 0 80px;text-align:center}
+  .hero .eyebrow{font-size:14px;letter-spacing:.32em;color:var(--gc);font-weight:800;text-transform:uppercase}
+  .hero h1{font-size:clamp(40px,8vw,82px);font-weight:900;letter-spacing:-.02em;margin:14px 0 6px;line-height:1.05}
+  .hero .sub{font-size:clamp(16px,2.4vw,22px);color:var(--muted);font-weight:600}
+  .hero .meta{margin-top:34px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .chip{background:var(--card);border:1px solid rgba(0,0,0,.07);border-radius:999px;
+        padding:10px 20px;font-size:14px;font-weight:700;box-shadow:0 4px 16px rgba(0,0,0,.04)}
+  .chip b{color:var(--gc)}
+  .flights{margin-top:30px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+  .flight{background:var(--card);border-radius:16px;padding:14px 22px;text-align:left;
+          border:1px solid rgba(0,0,0,.06);box-shadow:0 6px 20px rgba(0,0,0,.05);min-width:230px}
+  .flight .code{font-size:12px;font-weight:800;color:var(--fly);letter-spacing:.05em}
+  .flight .route{font-size:19px;font-weight:800;margin:3px 0}
+  .flight .when{font-size:13px;color:var(--muted)}
+  .scroll-hint{margin-top:54px;font-size:13px;color:var(--muted);font-weight:600;animation:bob 1.8s infinite}
+  @keyframes bob{0%,100%{transform:translateY(0);opacity:.6}50%{transform:translateY(7px);opacity:1}}
+
+  /* 도시 인트로 배너 */
+  .city-intro{padding:90px 0 30px;text-align:center}
+  .city-intro .badge{display:inline-block;padding:6px 16px;border-radius:999px;font-size:13px;
+                     font-weight:800;color:#fff;letter-spacing:.05em}
+  .badge.syd{background:var(--syd)} .badge.gc{background:var(--gc)} .badge.bne{background:var(--bne)}
+  .city-intro h2{font-size:clamp(30px,5vw,48px);font-weight:900;margin:14px 0 6px;letter-spacing:-.02em}
+  .city-intro p{color:var(--muted);font-size:15px;max-width:620px;margin:0 auto;font-weight:600}
+
+  /* 일정 카드 */
+  .day{display:flex;gap:36px;align-items:center;padding:46px 0;
+       border-top:1px solid rgba(0,0,0,.06)}
+  .day.rev{flex-direction:row-reverse}
+  .day-body{flex:1;min-width:0}
+  .day-media{flex:1;min-width:0}
+  .day-media img{width:100%;border-radius:18px;display:block;
+                 box-shadow:0 18px 44px rgba(0,0,0,.16);object-fit:cover;aspect-ratio:4/3}
+  .day-media img.portrait{aspect-ratio:auto;object-fit:contain;max-height:580px;width:auto;max-width:100%;margin:0 auto}
+  .day-media .cap{font-size:12px;color:var(--muted);margin-top:8px;text-align:center;font-weight:600}
+  .daytag{display:inline-flex;align-items:center;gap:10px;margin-bottom:12px}
+  .daynum{font-size:13px;font-weight:900;color:#fff;background:var(--ink);
+          padding:4px 12px;border-radius:8px;letter-spacing:.03em}
+  .daynum.syd{background:var(--syd)} .daynum.gc{background:var(--gc)}
+  .daynum.bne{background:var(--bne)} .daynum.fly{background:var(--fly)}
+  .daydate{font-size:14px;font-weight:700;color:var(--muted)}
+  .day h3{font-size:clamp(24px,3.6vw,34px);font-weight:900;letter-spacing:-.01em;line-height:1.2;margin-bottom:12px}
+  .day h3 .star{color:var(--gc)}
+  .day .desc{font-size:15.5px;color:#384150;font-weight:500;margin-bottom:14px}
+  .day .route{display:inline-block;font-size:13px;color:var(--muted);background:rgba(0,0,0,.04);
+              padding:6px 13px;border-radius:9px;font-weight:600}
+  .day ul{list-style:none;margin-top:14px;display:flex;flex-direction:column;gap:7px}
+  .day li{font-size:14px;color:#384150;padding-left:20px;position:relative;font-weight:500}
+  .day li::before{content:"";position:absolute;left:0;top:9px;width:7px;height:7px;border-radius:50%;background:var(--gc)}
+  .full{display:block}
+
+  /* 이동 구간 배너 */
+  .transit{display:flex;align-items:center;gap:22px;justify-content:center;text-align:center;
+           background:linear-gradient(135deg,#eef1f5,#f8fafc);border:1px dashed #c2cad6;
+           border-radius:20px;padding:26px 30px;margin:18px 0}
+  .transit .ticon{font-size:34px;flex:none}
+  .transit .tbody{text-align:left}
+  .transit .tlabel{font-size:12px;font-weight:800;letter-spacing:.1em;color:var(--fly);text-transform:uppercase}
+  .transit .troute{font-size:clamp(20px,3vw,28px);font-weight:900;letter-spacing:-.01em;margin:3px 0}
+  .transit .troute .arrow{color:var(--fly);margin:0 8px}
+  .transit .tmeta{font-size:14px;color:#384150;font-weight:600}
+  .transit .tnote{font-size:12.5px;color:var(--muted);margin-top:4px;font-weight:600}
+  @media(max-width:760px){.transit{flex-direction:column;gap:12px}.transit .tbody{text-align:center}}
+
+  /* 식도락 */
+  .food{padding:80px 0 40px;border-top:1px solid rgba(0,0,0,.06)}
+  .food h2{font-size:clamp(28px,4.5vw,42px);font-weight:900;text-align:center;letter-spacing:-.02em}
+  .food .lead{text-align:center;color:var(--muted);font-weight:600;margin:8px 0 36px}
+  .food-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+  .fcard{background:var(--card);border-radius:16px;padding:20px 22px;border:1px solid rgba(0,0,0,.06);
+         box-shadow:0 6px 18px rgba(0,0,0,.04)}
+  .fcard h4{font-size:17px;font-weight:800;margin-bottom:10px}
+  .fcard ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+  .fcard li{font-size:14px;color:#384150;font-weight:500}
+  .fcard li b{font-weight:800;color:var(--ink)}
+  .fcard li span{color:var(--muted);font-size:12.5px}
+  .signature{margin-top:26px;background:linear-gradient(135deg,#fff,#fff7ee);
+             border:1px solid #f0dcc0;border-radius:18px;padding:26px 28px;text-align:center}
+  .signature .k{font-size:12px;font-weight:800;color:var(--gc);letter-spacing:.16em}
+  .signature h4{font-size:24px;font-weight:900;margin:6px 0}
+  .signature p{color:var(--muted);font-size:14px;font-weight:600;max-width:600px;margin:0 auto}
+
+  footer{padding:70px 0 100px;text-align:center;color:var(--muted)}
+  footer .big{font-size:clamp(26px,4vw,40px);font-weight:900;color:var(--ink);letter-spacing:-.02em}
+  footer .sm{margin-top:10px;font-size:14px;font-weight:600}
+
+  @media(max-width:760px){
+    .day,.day.rev{flex-direction:column;gap:18px}
+    .tb-main{display:none}
+    .dot-num{display:none}
+    .day-media{order:-1;width:100%}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== 상단 진행 바 ===== -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="tb-head">
+      <span class="tb-day" id="tbDay">DAY 0</span>
+      <span class="tb-city" id="tbCity">호주 신혼여행</span>
+      <span class="tb-date" id="tbDate">2026.10.06 – 10.18</span>
+      <span class="tb-main" id="tbMain">스크롤하여 일정을 확인하세요</span>
+    </div>
+    <div class="track">
+      <div class="segs" id="segs"></div>
+      <div class="transits" id="transits"></div>
+      <div class="dots" id="dots"></div>
+    </div>
+    <div class="city-labels" id="cityLabels">
+      <div class="cl syd" data-c="syd" style="flex:5">시드니 5박</div>
+      <div class="cl gc"  data-c="gc"  style="flex:4">골드코스트 4박</div>
+      <div class="cl bne" data-c="bne" style="flex:2">브리즈번 2박</div>
+      <div class="cl fly" data-c="fly" style="flex:1">귀국</div>
+    </div>
+  </div>
+</div>
+
+<main>
+  <!-- ===== 히어로 ===== -->
+  <section class="hero" id="hero">
+    <div class="eyebrow">Honeymoon · Australia</div>
+    <h1>호주 신혼여행</h1>
+    <div class="sub">시드니 · 골드코스트 · 브리즈번 — 12박 13일</div>
+    <div class="meta">
+      <span class="chip">📅 <b>2026.10.06</b> 화 → <b>10.18</b> 일</span>
+      <span class="chip">👫 이훈정 &amp; 김관유</span>
+      <span class="chip">🎯 여유 + 자연 경관 중심</span>
+    </div>
+    <div class="flights">
+      <div class="flight">
+        <div class="code">✈ KE401 · 대한항공</div>
+        <div class="route">ICN → SYD</div>
+        <div class="when">10.06 19:10 → 07:20(+1) · 10h10m · B787-10</div>
+      </div>
+      <div class="flight">
+        <div class="code">✈ KE408 · 대한항공</div>
+        <div class="route">BNE → ICN</div>
+        <div class="when">10.18 08:40 → 17:35 · 9h55m · B787-9</div>
+      </div>
+    </div>
+    <div class="scroll-hint">▼ 스크롤하여 13일의 여정을 따라가세요</div>
+  </section>
+
+  <!-- 일정 컨테이너 (JS 렌더) -->
+  <div id="schedule"></div>
+
+  <!-- ===== 식도락 ===== -->
+  <section class="food" id="food">
+    <h2>🍴 식도락</h2>
+    <p class="lead">호주에서만 먹는 메뉴 + 신혼 1회용 파인다이닝</p>
+    <div class="food-grid">
+      <div class="fcard">
+        <h4>🥩 식사 · 고기</h4>
+        <ul>
+          <li><b>미트파이</b> <span>— 가장 호주다운 한 끼</span></li>
+          <li><b>캥거루 스테이크</b> <span>— 담백, 미디엄레어</span></li>
+          <li><b>바라문디</b> <span>— 호주 대표 흰살생선</span></li>
+          <li><b>소시지롤</b> <span>— 베이커리 기본템</span></li>
+        </ul>
+      </div>
+      <div class="fcard">
+        <h4>🦞 해산물 (퀸즐랜드)</h4>
+        <ul>
+          <li><b>모튼베이 버그</b> <span>— 골코·브리즈번서만 흔함</span></li>
+          <li><b>머드크랩</b> <span>— 칠리크랩·시가</span></li>
+          <li><b>시드니 록 오이스터</b> <span>— 작고 진함</span></li>
+          <li><b>피쉬앤칩스</b> <span>— 해변 포장이 제맛</span></li>
+        </ul>
+      </div>
+      <div class="fcard">
+        <h4>☕ 디저트 · 음료</h4>
+        <ul>
+          <li><b>플랫 화이트</b> <span>— 아메리카노 대신 이걸로</span></li>
+          <li><b>라밍턴</b> <span>— 퀸즐랜드 유래, 브리즈번서</span></li>
+          <li><b>팀탐</b> <span>— 마트 기념품 1순위</span></li>
+          <li><b>파블로바 · 베지마이트</b> <span>— 도전 메뉴</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="signature">
+      <div class="k">👑 신혼 1회 파인다이닝</div>
+      <h4>Bennelong · 시드니 오페라하우스</h4>
+      <p>오페라하우스 돛 내부, 셰프 Peter Gilmore의 모던 오스트레일리안. 뷰·상징성·음식 삼박자. Day 2 오페라하우스 일정과 그대로 연결 — <b>수주~한 달 전 예약 필수.</b></p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="big">🇦🇺 좋은 여행 되세요</div>
+    <div class="sm">2026.10.06 – 10.18 · 시드니 5박 → 골드코스트 4박 → 브리즈번 2박</div>
+  </footer>
+</main>
+
+<script>
+/* ===== 일정 데이터 ===== */
+const R = "resources/";
+const DAYS = [
+  {n:1, c:"syd", city:"시드니", date:"10.07 (수)", title:"도착 · 휴식 + 오페라하우스 야경",
+   desc:"서큘러키·달링하버 산책으로 시차 적응. 첫날은 여유롭게, 저녁엔 오페라하우스·하버브릿지 야경으로 신혼여행 시작.",
+   route:"공항 → 시티 15km · 약 30분"},
+  {n:2, c:"syd", city:"시드니", date:"10.08 (목)", title:"시티 + 본다이→쿠지 코스털 워크",
+   desc:"오페라하우스·보타닉가든·록스, 오후엔 본다이→쿠지 절벽 해안길.", route:"시티 도보 / 본다이 버스 30분 / 워크 6km",
+   img:R+"시드니 본다이 쿠지 코스탈워크.jpeg", cap:"본다이→쿠지 코스탈 워크 (브론테 인근 해안길) · Wikimedia Commons",
+   list:["저녁은 Bennelong (오페라하우스 돛 내부) — 신혼 파인다이닝"]},
+  {n:3, c:"syd", city:"시드니", date:"10.09 (금)", star:true, title:"블루마운틴 + 페더데일 (쿼카)",
+   desc:"세자매봉·시닉월드·웬트워스 폭포, 길목의 페더데일 동물원에서 쿼카 셀카·코알라 쓰다듬기.",
+   route:"시티→페더데일 40km → 블루마운틴 +60km (한 동선)",
+   img:R+"시드니 블루마운틴 세자매봉.jpg", cap:"세자매봉 (Three Sisters)",
+   img2:R+"시드니 페더데일 쿼카.jpg",
+   list:["⭐ 쿼카 인카운터 — 동부 해안 유일, 사전 예약 필수","NSW는 코알라 안기 금지(쓰다듬기 OK)"]},
+  {n:4, c:"syd", city:"시드니", date:"10.10 (토)", star:true, title:"포트스테판 · 스톡턴 모래썰매",
+   desc:"드넓은 모래사막 샌드보딩 + 돌핀크루즈. 당일투어 권장.",
+   route:"시티 북쪽 200km · 2.5h (당일투어)",
+   img:R+"시드니 포트스테판 모래썰매.jpg", cap:"스톡턴 모래사막 썰매",
+   list:["옷·신발 구멍으로 모래 다 들어옴 → 꽁꽁 싸매기"]},
+  {n:5, c:"syd", city:"시드니", date:"10.11 (일)", title:"로열 국립공원",
+   desc:"해안 절벽·와타몰라·웨딩케이크록. 시드니 마지막 날 자연 코스.", route:"시티 남쪽 36km · 1h (당일투어)"},
+
+  {n:6, c:"gc", city:"골드코스트", date:"10.12 (월)", title:"이동 + 서퍼스 · 벌리헤즈 석양",
+   desc:"오전 국내선 이동 후 서퍼스 파라다이스, 벌리헤즈 헤드랜드에서 석양 워크.",
+   route:"SYD→OOL 항공 1.5h / 공항→서퍼스 25분",
+   img:R+"골드코스트 서퍼스파라다이스 석양.jpg", cap:"서퍼스 파라다이스 석양"},
+  {n:7, c:"gc", city:"골드코스트", date:"10.13 (화)", star:true, title:"커럼빈 야생동물 보호구역 (코알라 안기)",
+   desc:"코알라 안고 사진(QLD에서만 합법)·앵무새 먹이주기. 오후엔 해변.",
+   route:"서퍼스 남쪽 17km · 25분",
+   img:R+"골드코스트 커럼빈 코알라 안기.png", cap:"커럼빈에서 코알라 안기", portrait:true,
+   list:["⭐ 코알라 안기 — 운영 09:00~16:00, 3~5시간 소요"]},
+  {n:8, c:"gc", city:"골드코스트", date:"10.14 (수)", title:"스프링브룩 국립공원 · 반딧불이",
+   desc:"유네스코 곤드와나 열대우림, 내추럴 브리지·폭포·전망대. 밤엔 반딧불이 야간투어.",
+   route:"서퍼스 남서쪽 40km · 1h",
+   img:R+"골드코스트 스프링브룩 트윈폴스.jpg", cap:"스프링브룩 트윈 폴스"},
+  {n:9, c:"gc", city:"골드코스트", date:"10.15 (목)", title:"고래관찰 크루즈 + 메인비치",
+   desc:"혹등고래 시즌 막바지(10월). 오전 크루즈 후 메인비치·더 스핏에서 여유.",
+   route:"마리나(메인비치) 북쪽 5km · 10분",
+   img:R+"골드코스트 고래관찰.jpg", cap:"혹등고래 브리칭",
+   list:["혹등고래 시즌이 10월에 끝남 → 조기 예약 필수"]},
+
+  {n:10, c:"bne", city:"브리즈번", date:"10.16 (금)", title:"이동 + 사우스뱅크 · 마운트 쿠사",
+   desc:"브리즈번 이동 후 사우스뱅크·스트리트비치, 마운트 쿠사 전망대에서 시티 파노라마.",
+   route:"서퍼스→브리즈번 80km · 1h / 쿠사 15분",
+   img:R+"브리즈번 시티홀.jpg", cap:"브리즈번 시티홀"},
+  {n:11, c:"bne", city:"브리즈번", date:"10.17 (토)", title:"스트라드브로크 섬 또는 시내 여유",
+   desc:"체력·날씨 보고 택일. 자연 욕심나면 노스 스트라드브로크(모래언덕·고래), 쉬고 싶으면 시내 쇼핑.",
+   route:"클리블랜드 40분 + 페리 45분 / 시내 도보"},
+  {n:12, c:"fly", city:"귀국", date:"10.18 (일)", title:"귀국 — BNE 08:40 → ICN 17:35",
+   desc:"새벽 공항 이동. 마지막 밤은 공항 접근성 우선. 13일의 여정 마무리.",
+   route:"공항 CBD 15km · 20분"}
+];
+
+/* ===== 이동 구간 데이터 (key = 직전 Day 번호) ===== */
+const TRANSITS = {
+  5:{id:"t-syd-gc", from:"syd", to:"gc", at:5, icon:"✈️",
+     fromCity:"시드니", toCity:"골드코스트", date:"10.12 (월) 오전",
+     route:"SYD → OOL", mode:"국내선 항공",
+     meta:"비행 약 1시간 30분 · 골드코스트(쿨랑가타) 공항 도착 후 서퍼스까지 25분",
+     note:"⚠ 국내선(SYD→OOL) 발권 미완 — 예약 필요"},
+  9:{id:"t-gc-bne", from:"gc", to:"bne", at:9, icon:"🚐",
+     fromCity:"골드코스트", toCity:"브리즈번", date:"10.16 (금) 오전",
+     route:"서퍼스 파라다이스 → 브리즈번", mode:"도로 이동 (셔틀/렌터카)",
+     meta:"약 80km · 1시간 · M1 고속도로. 도착 후 사우스뱅크·마운트 쿠사로 바로 이동",
+     note:"렌터카 미사용 동선 — 공항셔틀/시외버스(Greyhound) 또는 사전예약 트랜스퍼"}
+};
+
+/* ===== 일정 렌더 ===== */
+const sched = document.getElementById('schedule');
+function makeTransit(t){
+  const sec=document.createElement('section');
+  sec.className='transit track-sec';
+  sec.dataset.kind='transit'; sec.dataset.tid=t.id;
+  sec.dataset.label='이동'; sec.dataset.city=t.to;
+  sec.dataset.city_name=`${t.fromCity} → ${t.toCity}`;
+  sec.dataset.date=t.date; sec.dataset.title=`${t.mode} · ${t.route}`;
+  sec.id=t.id;
+  sec.innerHTML=`<div class="ticon">${t.icon}</div>
+    <div class="tbody">
+      <div class="tlabel">이동 · ${t.mode}</div>
+      <div class="troute">${t.fromCity}<span class="arrow">→</span>${t.toCity}</div>
+      <div class="tmeta">${t.route} · ${t.meta}</div>
+      <div class="tnote">${t.note}</div>
+    </div>`;
+  return sec;
+}
+let lastCity = "";
+const cityMeta = {
+  syd:{name:"시드니", desc:"입국지. 시티와 근교(블루마운틴·포트스테판·로열NP)를 거점 평지에서 당일치기로. 5박."},
+  gc:{name:"골드코스트", desc:"해변 휴양 + 힌터랜드 자연이 핵심. 동물원·고래·반딧불이. 4박."},
+  bne:{name:"브리즈번", desc:"출국지. 강변 도시에서 짧게, 마지막 정리. 2박."},
+};
+DAYS.forEach((d,i)=>{
+  // 도시 진입 직전에 이동 배너 삽입 (Day 6 앞 / Day 10 앞)
+  if(TRANSITS[d.n-1]) sched.appendChild(makeTransit(TRANSITS[d.n-1]));
+  // 도시 인트로
+  if(d.c!==lastCity && cityMeta[d.c]){
+    const intro=document.createElement('section');
+    intro.className='city-intro';
+    intro.innerHTML=`<span class="badge ${d.c}">${cityMeta[d.c].name}</span>
+      <h2>${cityMeta[d.c].name}</h2><p>${cityMeta[d.c].desc}</p>`;
+    sched.appendChild(intro);
+    lastCity=d.c;
+  }
+  const sec=document.createElement('section');
+  sec.className='day track-sec'+(i%2?' rev':'');
+  sec.dataset.kind='day';
+  sec.dataset.day=d.n; sec.dataset.city=d.c; sec.dataset.date=d.date;
+  sec.dataset.city_name=d.city; sec.dataset.title=d.title; sec.dataset.label='DAY '+d.n;
+
+  let media='';
+  if(d.img){
+    media=`<div class="day-media"><img class="${d.portrait?'portrait':''}" src="${encodeURI(d.img)}" alt="${d.cap||''}" loading="lazy">`
+        + (d.cap?`<div class="cap">${d.cap}</div>`:'')+`</div>`;
+  }
+  let list = d.list?`<ul>${d.list.map(x=>`<li>${x}</li>`).join('')}</ul>`:'';
+  const star = d.star?'<span class="star">⭐ </span>':'';
+
+  const body=`<div class="day-body">
+      <div class="daytag">
+        <span class="daynum ${d.c}">DAY ${d.n}</span>
+        <span class="daydate">${d.date} · ${d.city}</span>
+      </div>
+      <h3>${star}${d.title}</h3>
+      <p class="desc">${d.desc}</p>
+      <span class="route">📍 ${d.route}</span>
+      ${list}
+    </div>`;
+
+  sec.classList.toggle('full', !d.img);
+  sec.innerHTML = body + media;
+  sched.appendChild(sec);
+});
+
+/* ===== 상단 진행 점 생성 ===== */
+const segsEl=document.getElementById('segs');
+const dotsEl=document.getElementById('dots');
+[['syd',5],['gc',4],['bne',2],['fly',1]].forEach(([c,f])=>{
+  const s=document.createElement('div');s.className='seg '+c;s.style.flex=f;s.dataset.c=c;segsEl.appendChild(s);
+});
+DAYS.forEach(d=>{
+  const w=document.createElement('div');w.className='dot-wrap';
+  w.innerHTML=`<div class="dot ${d.c}" data-day="${d.n}"></div><span class="dot-num">${d.n}</span>`;
+  w.querySelector('.dot').addEventListener('click',()=>{
+    document.querySelector(`.day[data-day="${d.n}"]`)?.scrollIntoView({behavior:'smooth',block:'center'});
+  });
+  dotsEl.appendChild(w);
+});
+
+/* 이동 마커 — Day 경계(after dot N) = N/12 위치 */
+const transitsEl=document.getElementById('transits');
+const TOTAL=DAYS.length; // 12
+Object.values(TRANSITS).forEach(t=>{
+  const m=document.createElement('div');
+  m.className='tmark';m.dataset.tid=t.id;
+  m.style.left=(t.at/TOTAL*100)+'%';
+  m.textContent=t.icon;
+  m.title=`${t.fromCity} → ${t.toCity} (${t.mode})`;
+  m.addEventListener('click',()=>{
+    document.getElementById(t.id)?.scrollIntoView({behavior:'smooth',block:'center'});
+  });
+  transitsEl.appendChild(m);
+});
+
+/* ===== 스크롤 동기화 ===== */
+const tbDay=document.getElementById('tbDay'), tbCity=document.getElementById('tbCity'),
+      tbDate=document.getElementById('tbDate'), tbMain=document.getElementById('tbMain');
+const trackSecs=[...document.querySelectorAll('.track-sec')];
+const dotEls=[...document.querySelectorAll('.dot')];
+const segEls=[...document.querySelectorAll('.seg')];
+const clEls=[...document.querySelectorAll('.cl')];
+const tmarkEls=[...document.querySelectorAll('.tmark')];
+
+function update(){
+  const mid=window.innerHeight*0.42;
+  let cur=null;
+  for(const s of trackSecs){
+    const r=s.getBoundingClientRect();
+    if(r.top<=mid) cur=s; else break;
+  }
+  if(!cur){ // 히어로 구간
+    tbDay.textContent="DAY 0";tbCity.textContent="호주 신혼여행";
+    tbDate.textContent="2026.10.06 – 10.18";tbMain.textContent="스크롤하여 일정을 확인하세요";
+    dotEls.forEach(d=>d.classList.remove('active','passed'));
+    segEls.forEach(s=>s.classList.remove('on'));
+    clEls.forEach(c=>c.classList.remove('on'));
+    tmarkEls.forEach(m=>m.classList.remove('active'));
+    return;
+  }
+  const c=cur.dataset.city;
+  tbDay.textContent=cur.dataset.label;
+  tbCity.textContent=cur.dataset.city_name;
+  tbDate.textContent=cur.dataset.date;
+  tbMain.textContent=cur.dataset.title;
+
+  if(cur.dataset.kind==='transit'){
+    const t=TRANSITS[Object.keys(TRANSITS).find(k=>TRANSITS[k].id===cur.dataset.tid)];
+    const at=t?t.at:0;
+    dotEls.forEach(d=>{d.classList.remove('active');d.classList.toggle('passed',+d.dataset.day<=at);});
+    tmarkEls.forEach(m=>m.classList.toggle('active',m.dataset.tid===cur.dataset.tid));
+  }else{
+    const n=+cur.dataset.day;
+    dotEls.forEach(d=>{const dn=+d.dataset.day;d.classList.toggle('active',dn===n);d.classList.toggle('passed',dn<n);});
+    tmarkEls.forEach(m=>m.classList.remove('active'));
+  }
+  segEls.forEach(s=>s.classList.toggle('on',s.dataset.c===c));
+  clEls.forEach(cl=>cl.classList.toggle('on',cl.dataset.c===c));
+}
+window.addEventListener('scroll',update,{passive:true});
+window.addEventListener('resize',update);
+update();
+</script>
+</body>
+</html>
