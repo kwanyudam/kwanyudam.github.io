@@ -17,7 +17,7 @@
     --card:#ffffff;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
+  html{scroll-behavior:auto}
   body{
     font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Malgun Gothic",sans-serif;
     color:var(--ink);background:var(--bg);line-height:1.6;
@@ -165,11 +165,13 @@
   footer .sm{margin-top:10px;font-size:14px;font-weight:600}
 
   /* ===== 우측 TODO 사이드 메뉴 ===== */
-  .todo-tab{position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:120;
-    background:var(--gc);color:#fff;border:none;cursor:pointer;font-weight:800;
+  .side-tabs{position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:120;
+    display:flex;flex-direction:column;gap:8px;align-items:flex-end}
+  .side-tab{background:var(--gc);color:#fff;border:none;cursor:pointer;font-weight:800;
     font-size:13px;letter-spacing:.06em;padding:16px 9px;border-radius:12px 0 0 12px;
-    writing-mode:vertical-rl;box-shadow:-3px 0 14px rgba(0,0,0,.18);transition:opacity .2s,transform .2s}
-  .todo-tab:hover{transform:translateY(-50%) translateX(-2px)}
+    writing-mode:vertical-rl;box-shadow:-3px 0 14px rgba(0,0,0,.18);transition:transform .18s}
+  .side-tab:hover{transform:translateX(-3px)}
+  .side-tab.cost{background:var(--syd)}
   .todo-overlay{position:fixed;inset:0;background:rgba(0,0,0,.32);z-index:125;opacity:0;visibility:hidden;transition:opacity .3s}
   .todo-overlay.open{opacity:1;visibility:visible}
   .todo-drawer{position:fixed;top:0;right:0;height:100vh;width:344px;max-width:86vw;z-index:130;
@@ -196,8 +198,19 @@
   .todo-body li .sub{margin-top:8px;gap:7px}
   .todo-body li .sub li{font-size:13px;font-weight:600;color:#5a6473}
   .todo-body li .sub li::before{top:7px;width:5px;height:5px;background:#e0a567}
-  @media(max-width:760px){.todo-tab{writing-mode:horizontal-tb;top:auto;bottom:80px;transform:none;padding:10px 14px}
-    .todo-tab:hover{transform:translateX(-2px)}}
+  /* COST 표 */
+  .cost-table{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:6px}
+  .cost-table td{padding:10px 2px;border-bottom:1px solid rgba(0,0,0,.07);vertical-align:top;color:#384150}
+  .cost-table .st{display:block;font-size:11px;color:var(--muted);font-weight:600;margin-top:3px}
+  .cost-table .amt{text-align:right;font-weight:800;white-space:nowrap;color:var(--ink)}
+  .cost-table tr.pending .amt{color:var(--muted);font-weight:600}
+  .cost-total{display:flex;justify-content:space-between;align-items:baseline;margin-top:18px;padding-top:14px;border-top:2px solid var(--ink)}
+  .cost-total span{font-size:13px;font-weight:800;letter-spacing:.04em}
+  .cost-total b{font-size:23px;font-weight:900;color:var(--gc)}
+  .cost-note{font-size:11.5px;color:var(--muted);margin-top:16px;line-height:1.6;font-weight:500}
+  @media(max-width:760px){.side-tabs{top:auto;bottom:80px;transform:none;gap:6px}
+    .side-tab{writing-mode:horizontal-tb;padding:9px 14px}
+    .side-tab:hover{transform:translateX(-2px)}}
 
   @media(max-width:760px){
     .day,.day.rev{flex-direction:column;gap:18px}
@@ -210,8 +223,11 @@
 <body>
 
 <!-- ===== 우측 TODO 사이드 메뉴 ===== -->
-<button class="todo-tab" id="todoTab" aria-label="TODO 열기">‹ TODO</button>
-<div class="todo-overlay" id="todoOverlay"></div>
+<div class="side-tabs">
+  <button class="side-tab" id="todoTab" aria-label="TODO 열기">‹ TODO</button>
+  <button class="side-tab cost" id="costTab" aria-label="COST 열기">‹ COST</button>
+</div>
+<div class="todo-overlay" id="sideOverlay"></div>
 <aside class="todo-drawer" id="todoDrawer" aria-hidden="true">
   <div class="todo-head"><h3>✅ 준비 TODO</h3><button class="todo-close" id="todoClose" aria-label="닫기">×</button></div>
   <div class="todo-body">
@@ -247,6 +263,15 @@
       <li>시드니→골드코스트→브리즈번 동선 확정</li>
       <li>여권 유효기간 확인</li>
     </ul>
+  </div>
+</aside>
+
+<aside class="todo-drawer" id="costDrawer" aria-hidden="true">
+  <div class="todo-head"><h3>💰 COST</h3><button class="todo-close" id="costClose" aria-label="닫기">×</button></div>
+  <div class="todo-body">
+    <table class="cost-table" id="costTable"></table>
+    <div class="cost-total"><span>현재 사용 합계</span><b id="costSpent">—</b></div>
+    <p class="cost-note">* 이훈정 항공권은 김관유 영수증(1,407,100원) 기준 동일 여정 추정치입니다. 실제 결제액 확인 후 갱신하세요.<br>현재 합계는 결제 완료 항목만 포함하며, 미정 항목은 금액을 채우면 자동 합산됩니다.</p>
   </div>
 </aside>
 
@@ -494,7 +519,7 @@ DAYS.forEach(d=>{
   const w=document.createElement('div');w.className='dot-wrap';
   w.innerHTML=`<div class="dot ${d.c}" data-day="${d.n}"></div><span class="dot-num">${d.n}</span>`;
   w.querySelector('.dot').addEventListener('click',()=>{
-    document.querySelector(`.day[data-day="${d.n}"]`)?.scrollIntoView({behavior:'smooth',block:'center'});
+    animScroll(document.querySelector(`.day[data-day="${d.n}"]`));
   });
   dotsEl.appendChild(w);
 });
@@ -508,9 +533,7 @@ Object.values(TRANSITS).forEach(t=>{
   m.style.left=(t.at/TOTAL*100)+'%';
   m.textContent=t.icon;
   m.title=`${t.fromCity} → ${t.toCity} (${t.mode})`;
-  m.addEventListener('click',()=>{
-    document.getElementById(t.id)?.scrollIntoView({behavior:'smooth',block:'center'});
-  });
+  m.addEventListener('click',()=>{ animScroll(document.getElementById(t.id)); });
   transitsEl.appendChild(m);
 });
 
@@ -562,22 +585,54 @@ window.addEventListener('scroll',update,{passive:true});
 window.addEventListener('resize',update);
 update();
 
-/* ===== TODO 사이드 메뉴 토글 ===== */
-const todoTab=document.getElementById('todoTab'),
-      todoDrawer=document.getElementById('todoDrawer'),
-      todoOverlay=document.getElementById('todoOverlay'),
-      todoClose=document.getElementById('todoClose');
-function setTodo(open){
-  todoDrawer.classList.toggle('open',open);
-  todoOverlay.classList.toggle('open',open);
-  todoTab.style.opacity=open?'0':'';
-  todoTab.style.pointerEvents=open?'none':'';
-  todoDrawer.setAttribute('aria-hidden',String(!open));
+/* ===== 빠른 스크롤 (일자·마커 클릭) ===== */
+function animScroll(el){
+  if(!el) return;
+  const rect=el.getBoundingClientRect();
+  const dest=Math.max(0, window.scrollY+rect.top-(window.innerHeight-rect.height)/2);
+  const start=window.scrollY, diff=dest-start, dur=320; let t0=null;
+  function step(ts){ if(t0===null)t0=ts; const p=Math.min((ts-t0)/dur,1);
+    const e=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2; // easeInOutQuad
+    window.scrollTo(0,start+diff*e); if(p<1) requestAnimationFrame(step); }
+  requestAnimationFrame(step);
 }
-todoTab.addEventListener('click',()=>setTodo(true));
-todoClose.addEventListener('click',()=>setTodo(false));
-todoOverlay.addEventListener('click',()=>setTodo(false));
-document.addEventListener('keydown',e=>{if(e.key==='Escape')setTodo(false);});
+
+/* ===== 사이드 메뉴 (TODO / COST) ===== */
+const sideOverlay=document.getElementById('sideOverlay');
+const drawers={todo:document.getElementById('todoDrawer'),cost:document.getElementById('costDrawer')};
+function openDrawer(name){
+  for(const k in drawers){drawers[k].classList.toggle('open',k===name);drawers[k].setAttribute('aria-hidden',String(k!==name));}
+  sideOverlay.classList.toggle('open',!!name);
+}
+document.getElementById('todoTab').addEventListener('click',()=>openDrawer('todo'));
+document.getElementById('costTab').addEventListener('click',()=>openDrawer('cost'));
+document.getElementById('todoClose').addEventListener('click',()=>openDrawer(null));
+document.getElementById('costClose').addEventListener('click',()=>openDrawer(null));
+sideOverlay.addEventListener('click',()=>openDrawer(null));
+document.addEventListener('keydown',e=>{if(e.key==='Escape')openDrawer(null);});
+
+/* ===== COST 표 렌더 + 현재 사용 합계 ===== */
+const COSTS=[
+  {item:"항공권 — 김관유", sub:"대한항공 왕복 KE401/KE408", amount:1407100, status:"지출 완료"},
+  {item:"항공권 — 이훈정", sub:"대한항공 왕복 (동일 여정·추정)", amount:1407100, status:"지출 완료"},
+  {item:"국내선 SYD→OOL", sub:"2인, Day 6", amount:null, status:"예약 전"},
+  {item:"숙소", sub:"시드니5 · 골코4 · 브리즈번2 (11박)", amount:null, status:"예약 전"},
+  {item:"핵심 액티비티", sub:"쿼카·코알라·모래썰매·블루마운틴·고래", amount:null, status:"예약 전"},
+  {item:"레스토랑", sub:"파인다이닝 등", amount:null, status:"예약 전"},
+  {item:"여행자보험", sub:"2인", amount:null, status:"예약 전"},
+];
+const won=n=>n.toLocaleString('ko-KR')+'원';
+const costTable=document.getElementById('costTable');
+let spent=0;
+COSTS.forEach(c=>{
+  if(c.amount!=null) spent+=c.amount;
+  const tr=document.createElement('tr');
+  if(c.amount==null) tr.className='pending';
+  tr.innerHTML=`<td>${c.item}<span class="st">${c.sub}</span></td>`
+    +`<td class="amt">${c.amount!=null?won(c.amount):'미정'}<span class="st">${c.status}</span></td>`;
+  costTable.appendChild(tr);
+});
+document.getElementById('costSpent').textContent=won(spent);
 </script>
 </body>
 </html>
