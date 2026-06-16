@@ -193,6 +193,9 @@
     padding:1px 8px;border-radius:6px;margin-left:4px}
   .todo-body .done li{color:var(--muted)}
   .todo-body .done li::before{background:#c2c8d2}
+  .todo-body li .sub{margin-top:8px;gap:7px}
+  .todo-body li .sub li{font-size:13px;font-weight:600;color:#5a6473}
+  .todo-body li .sub li::before{top:7px;width:5px;height:5px;background:#e0a567}
   @media(max-width:760px){.todo-tab{writing-mode:horizontal-tb;top:auto;bottom:80px;transform:none;padding:10px 14px}
     .todo-tab:hover{transform:translateX(-2px)}}
 
@@ -214,7 +217,15 @@
   <div class="todo-body">
     <div class="grp">🔥 예약 · 준비</div>
     <ul>
-      <li class="due">핵심 액티비티 예약 <span class="tag">~6/21(일)</span><br>쿼카 인카운터 · 코알라 안기 · 포트스테판 모래썰매 · 블루마운틴 · 고래투어</li>
+      <li class="due">핵심 액티비티 예약 <span class="tag">~6/21(일)</span>
+        <ul class="sub">
+          <li>쿼카 인카운터 (페더데일)</li>
+          <li>코알라 안기 (커럼빈)</li>
+          <li>포트스테판 모래썰매 · 돌핀크루즈</li>
+          <li>블루마운틴 투어</li>
+          <li>고래관찰 크루즈</li>
+        </ul>
+      </li>
       <li>시드니 → 골드코스트 국내선(SYD→OOL) 발권</li>
       <li>숙소 예약 — 서큘러키 / 브로드비치 / 사우스뱅크</li>
       <li>레스토랑 예약 — Bennelong · ARIA · Palette 등 (수주~한 달 전)</li>
