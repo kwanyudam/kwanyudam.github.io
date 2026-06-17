@@ -228,6 +228,9 @@
   .tl tr.k-stay{background:#f6f7f9}
   .tl tr.k-stay .tld{color:var(--muted);font-weight:700}
   .tl .tsub{display:block;margin-top:3px;font-size:12px;line-height:1.45;color:var(--muted);font-weight:600}
+  .tl .dur{display:inline-block;margin-left:4px;font-size:11px;font-weight:800;color:#0f766e;
+       background:#e6f4f2;padding:1px 6px;border-radius:6px;white-space:nowrap;vertical-align:middle}
+  .tl tr.k-move .tld{color:var(--muted)}
   .tl .tld a{color:var(--syd);text-decoration:none;border-bottom:1px solid rgba(37,99,235,.35)}
   .tl .tld a:hover{border-bottom-color:var(--syd)}
   .rsv{display:inline-block;margin-left:5px;font-size:10.5px;font-weight:800;color:#c2410c;
@@ -313,12 +316,19 @@
           <li>코알라 안기 (커럼빈)</li>
           <li>포트스테판 모래썰매 · 돌핀크루즈</li>
           <li>블루마운틴 투어</li>
-          <li>고래관찰 크루즈</li>
+          <li>웨이브브레이크 스노클 (메인비치)</li>
         </ul>
       </li>
       <li>시드니 → 골드코스트 국내선(SYD→OOL) 발권</li>
       <li>숙소 예약 — 서큘러키 / 브로드비치 / 사우스뱅크</li>
-      <li>레스토랑 예약 — Bennelong · ARIA · Palette 등 (수주~한 달 전)</li>
+      <li>레스토랑 예약 <span class="tag">예약필요</span>
+        <ul class="sub">
+          <li>Day2 Bennelong · Icebergs</li>
+          <li>Day3 Rockpool · Day4 Nick's Seafood</li>
+          <li>Day5 ARIA · Day6 Hurricane's Grill</li>
+          <li>Day9 George's Paragon · Day11 Cha Cha Char</li>
+        </ul>
+      </li>
       <li>근교 이동 — 당일투어 / 대중교통 (렌터카 미사용)</li>
       <li>여행자보험</li>
       <li>예산 산정</li>
@@ -611,78 +621,92 @@ const DAYS = [
 
 /* ===== 일자별 시간대 표 (식당·액티비티·숙소) — 숙소는 미정 ===== */
 const PLANS = {
-  1:[{t:"오전",k:"move",d:"SYD 07:20 도착 → 시티, 호텔 체크인·휴식"},
-     {t:"점심",k:"eat",d:"<b>점심 — 후보</b>",s:"Sydney Fish Market(피쉬앤칩스·오이스터) · QVB 베이커리(미트파이·플랫화이트)"},
-     {t:"오후",k:"shop",d:"<b>CBD 쇼핑</b> — QVB·피트스트리트몰·웨스트필드",s:"거점이 CBD/서큘러키라 도착일 오후가 쇼핑 최적 · 면세·기념품 가볍게, 짐은 호텔 보관"},
-     {t:"저녁",k:"eat",d:"<b><a href='https://operabar.com.au/' target='_blank' rel='noopener'>Opera Bar</a></b> — 오이스터+스프리츠, 하버 야경",s:"워크인 바(예약 없이) · 해질녘 자리 경쟁"},
-     {t:"디저트",k:"dessert",d:"<a href='https://gelatomessina.com/' target='_blank' rel='noopener'>Gelato Messina</a>(달링하버) — 호주 1등 젤라또"},
-     {t:"밤",k:"act",d:"오페라하우스·하버브릿지 야경 산책"},
+  1:[{t:"07:20",k:"move",d:"SYD 도착 — 입국·수하물 → 공항→시티",dur:"이동 30분"},
+     {t:"10:00",k:"free",d:"호텔 체크인·짐 보관, 시차 적응 휴식",dur:"2h"},
+     {t:"12:30",k:"eat",d:"<b>점심 — 후보</b>",dur:"1h",s:"Sydney Fish Market(피쉬앤칩스·오이스터) · QVB 베이커리(미트파이·플랫화이트)"},
+     {t:"14:00",k:"shop",d:"<b>CBD 쇼핑</b> — QVB·피트스트리트몰·웨스트필드",dur:"3h",s:"도착일 오후가 쇼핑 최적 · 면세·기념품 가볍게, 짐은 호텔 보관"},
+     {t:"18:30",k:"eat",d:"<b><a href='https://operabar.com.au/' target='_blank' rel='noopener'>Opera Bar</a></b> — 오이스터+스프리츠, 하버 야경",dur:"1.5h",s:"워크인 바(예약 없이) · 해질녘 자리 경쟁"},
+     {t:"20:00",k:"dessert",d:"<a href='https://gelatomessina.com/' target='_blank' rel='noopener'>Gelato Messina</a>(달링하버)",dur:"30분"},
+     {t:"20:30",k:"act",d:"오페라하우스·하버브릿지 야경 산책",dur:"1h"},
      {t:"숙소",k:"stay",d:"서큘러키/CBD · <b>미정</b>"}],
-  2:[{t:"아침",k:"run",d:"<b>시드니 시내 러닝</b> — 미세스 매쿼리 하버 루프(오페라하우스+하버브릿지, 5km) + <a href='https://singleo.com.au/' target='_blank' rel='noopener'>Single O</a> 커피"},
-     {t:"오전",k:"act",d:"오페라하우스·보타닉가든·록스"},
-     {t:"점심",k:"eat",d:"<b><a href='https://idrb.com/' target='_blank' rel='noopener'>Icebergs</a></b>(본다이) — 모던 이탈리안·오션풀 뷰 <span class='rsv'>예약필요</span>"},
-     {t:"오후",k:"water",d:"본다이 물놀이 + 본다이→쿠지 코스털 워크",s:"10월 수온 ~18도 → 가벼운 물놀이·오션풀 위주"},
-     {t:"저녁",k:"eat",d:"👑 <b><a href='https://www.bennelong.com.au/' target='_blank' rel='noopener'>Bennelong</a></b>(오페라하우스) — 신혼 파인다이닝 <span class='rsv'>예약필요</span>",s:"수주~한 달 전 예약 필수 · 일몰 창가석 경쟁"},
-     {t:"디저트",k:"dessert",d:"<a href='https://gelatomessina.com/' target='_blank' rel='noopener'>Gelato Messina</a>(서큘러키/본다이)"},
+  2:[{t:"06:00",k:"run",d:"<b>시드니 시내 러닝</b> — 미세스 매쿼리 하버 루프 + <a href='https://singleo.com.au/' target='_blank' rel='noopener'>Single O</a> 커피",dur:"5km·1h"},
+     {t:"09:00",k:"act",d:"오페라하우스·보타닉가든·록스",dur:"2.5h"},
+     {t:"11:30",k:"move",d:"시티 → 본다이",dur:"버스 30분"},
+     {t:"12:00",k:"eat",d:"<b><a href='https://idrb.com/' target='_blank' rel='noopener'>Icebergs</a></b>(본다이) — 오션풀 뷰 <span class='rsv'>예약필요</span>",dur:"1.5h"},
+     {t:"13:30",k:"water",d:"본다이 물놀이 + 본다이→쿠지 코스털 워크",dur:"3h",s:"수온 ~18도 가벼운 물놀이 · 워크 6km"},
+     {t:"17:00",k:"move",d:"본다이 → 시티",dur:"30분"},
+     {t:"18:30",k:"eat",d:"👑 <b><a href='https://www.bennelong.com.au/' target='_blank' rel='noopener'>Bennelong</a></b>(오페라하우스) — 신혼 파인다이닝 <span class='rsv'>예약필요</span>",dur:"2h",s:"수주~한 달 전 예약 필수"},
+     {t:"20:30",k:"dessert",d:"<a href='https://gelatomessina.com/' target='_blank' rel='noopener'>Gelato Messina</a>(서큘러키)",dur:"30분"},
      {t:"숙소",k:"stay",d:"서큘러키/CBD · <b>미정</b>"}],
-  3:[{t:"아침",k:"move",d:"블루마운틴 당일투어 픽업(서쪽)"},
-     {t:"오전",k:"act",d:"페더데일 동물원 — 쿼카 셀카·코알라",s:"⭐ 쿼카 인카운터 동부 해안 유일·사전 예약 필수 · NSW 코알라 안기 금지(쓰다듬기 OK)"},
-     {t:"점심",k:"eat",d:"카툼바 — 투어 런치",s:"후보: 카툼바 카페(미트파이·바라문디) · 블루마운틴 투어 포함 여부 확인"},
-     {t:"오후",k:"act",d:"블루마운틴 세자매봉·시닉월드·웬트워스 폭포"},
-     {t:"저녁",k:"eat",d:"<b><a href='https://rockpoolbarandgrill.com.au/' target='_blank' rel='noopener'>Rockpool Bar & Grill</a></b>(CBD) — 월드 톱15 스테이크 <span class='rsv'>예약필요</span>"},
+  3:[{t:"07:00",k:"move",d:"투어 픽업(시티) → 페더데일",dur:"이동 45분"},
+     {t:"08:00",k:"act",d:"페더데일 동물원 — 쿼카 셀카·코알라",dur:"1.5h",s:"⭐ 쿼카 인카운터 사전 예약 필수 · NSW 코알라 안기 금지(쓰다듬기 OK)"},
+     {t:"10:00",k:"move",d:"페더데일 → 블루마운틴",dur:"이동 1h"},
+     {t:"11:00",k:"act",d:"세자매봉·시닉월드 궤도열차·케이블카",dur:"2h"},
+     {t:"13:00",k:"eat",d:"카툼바 — 투어 런치",dur:"1h",s:"후보: 카툼바 카페(미트파이·바라문디) · 투어 포함 여부 확인"},
+     {t:"14:00",k:"act",d:"웬트워스 폭포·전망",dur:"2h"},
+     {t:"17:30",k:"move",d:"블루마운틴 → 시티",dur:"이동 1.5h"},
+     {t:"19:30",k:"eat",d:"<b><a href='https://rockpoolbarandgrill.com.au/' target='_blank' rel='noopener'>Rockpool Bar & Grill</a></b>(CBD) — 월드 톱15 스테이크 <span class='rsv'>예약필요</span>",dur:"1.5h"},
      {t:"숙소",k:"stay",d:"서큘러키/CBD · <b>미정</b>"}],
-  4:[{t:"아침",k:"move",d:"포트스테판 당일투어 픽업(북쪽 200km)"},
-     {t:"오전",k:"act",d:"스톡턴 모래사막 샌드보딩",s:"옷·신발 구멍으로 모래 다 들어옴 → 꽁꽁 싸매기"},
-     {t:"점심",k:"eat",d:"<b>점심 — 후보</b>",s:"포트스테판 시푸드(모튼베이버그·피쉬앤칩스) · 와이너리 런치(투어 포함 시)"},
-     {t:"오후",k:"act",d:"돌핀크루즈"},
-     {t:"저녁",k:"eat",d:"복귀 후 <b><a href='https://www.nicksgroup.com.au/venue/nicks-seafood-restaurant/' target='_blank' rel='noopener'>Nick's Seafood</a></b>(달링하버) — 시푸드 플래터 <span class='rsv'>예약필요</span>"},
+  4:[{t:"07:00",k:"move",d:"투어 픽업 → 포트스테판(북쪽 200km)",dur:"이동 2.5h"},
+     {t:"10:00",k:"act",d:"스톡턴 모래사막 샌드보딩",dur:"2h",s:"옷·신발 구멍으로 모래 다 들어옴 → 꽁꽁 싸매기"},
+     {t:"12:30",k:"eat",d:"<b>점심 — 후보</b>",dur:"1h",s:"포트스테판 시푸드(모튼베이버그·피쉬앤칩스) · 와이너리 런치(투어 포함 시)"},
+     {t:"14:00",k:"act",d:"돌핀크루즈",dur:"1.5h"},
+     {t:"16:00",k:"move",d:"포트스테판 → 시티",dur:"이동 2.5h"},
+     {t:"19:00",k:"eat",d:"<b><a href='https://www.nicksgroup.com.au/venue/nicks-seafood-restaurant/' target='_blank' rel='noopener'>Nick's Seafood</a></b>(달링하버) — 시푸드 플래터 <span class='rsv'>예약필요</span>",dur:"1.5h"},
      {t:"숙소",k:"stay",d:"서큘러키/CBD · <b>미정</b>"}],
-  5:[{t:"아침",k:"move",d:"당일투어 픽업 (택1 방향)"},
-     {t:"오전·오후",k:"act",d:"<b>헌터밸리 와이너리</b> 또는 <b>로열NP</b> (위 카드서 택일)",s:"택1에 따라 동선·점심 달라짐"},
-     {t:"점심",k:"eat",d:"<b>점심 — 후보</b>",s:"와이너리 가든 런치(택1 시) · 로열NP 도시락/와타몰라 카페"},
-     {t:"저녁",k:"eat",d:"<b><a href='https://ariasydney.com.au/' target='_blank' rel='noopener'>ARIA</a></b>(서큘러키) — 하버뷰, 시드니 마지막 밤 <span class='rsv'>예약필요</span>"},
+  5:[{t:"07:30",k:"move",d:"투어 픽업 (택1 방향)",dur:"이동 1~2.5h"},
+     {t:"10:00",k:"act",d:"<b>헌터밸리 와이너리</b> 또는 <b>로열NP</b> (위 카드서 택일)",dur:"5~6h",s:"택1에 따라 동선·점심 달라짐"},
+     {t:"12:30",k:"eat",d:"<b>점심 — 후보</b>",dur:"1.5h",s:"와이너리 가든 런치(택1 시) · 로열NP 도시락/와타몰라 카페"},
+     {t:"17:00",k:"move",d:"시티 복귀",dur:"이동 1~2.5h"},
+     {t:"19:00",k:"eat",d:"<b><a href='https://ariasydney.com.au/' target='_blank' rel='noopener'>ARIA</a></b>(서큘러키) — 하버뷰, 시드니 마지막 밤 <span class='rsv'>예약필요</span>",dur:"2h"},
      {t:"숙소",k:"stay",d:"서큘러키/CBD · <b>미정</b>"}],
-  6:[{t:"아침",k:"move",d:"SYD→OOL 국내선 → 서퍼스 체크인"},
-     {t:"점심",k:"eat",d:"<b>점심 — 후보</b>",s:"서퍼스 비치프런트 카페(브런치·바라문디) · 피쉬앤칩스"},
-     {t:"오후",k:"water",d:"서퍼스 파라다이스 해수욕·물놀이",s:"수온 ~22도 본격 해수욕 OK · 안전요원 깃발(빨강·노랑) 안쪽 구간"},
-     {t:"저녁",k:"eat",d:"<b><a href='https://hurricanesgrillandbar.com.au/surfers-paradise' target='_blank' rel='noopener'>Hurricane's Grill</a></b>(서퍼스) — 폭립·해변뷰 → 벌리헤즈 석양 <span class='rsv'>예약필요</span>"},
-     {t:"디저트",k:"dessert",d:"Gelato Gemelli(노비비치) · Al Bacio(벌리)"},
+  6:[{t:"08:00",k:"move",d:"SYD→OOL 국내선",dur:"비행 1.5h"},
+     {t:"10:30",k:"move",d:"공항 → 서퍼스 체크인",dur:"이동 25분"},
+     {t:"12:30",k:"eat",d:"<b>점심 — 후보</b>",dur:"1h",s:"서퍼스 비치프런트 카페(브런치·바라문디) · 피쉬앤칩스"},
+     {t:"14:00",k:"water",d:"서퍼스 파라다이스 해수욕·물놀이",dur:"3h",s:"수온 ~22도 본격 해수욕 OK · 안전요원 깃발 안쪽 구간"},
+     {t:"17:00",k:"move",d:"서퍼스 → 벌리헤즈",dur:"20분"},
+     {t:"17:30",k:"act",d:"벌리헤즈 헤드랜드 석양 워크",dur:"1.5h"},
+     {t:"19:30",k:"eat",d:"<b><a href='https://hurricanesgrillandbar.com.au/surfers-paradise' target='_blank' rel='noopener'>Hurricane's Grill</a></b>(서퍼스) — 폭립·해변뷰 <span class='rsv'>예약필요</span>",dur:"1.5h"},
+     {t:"21:00",k:"dessert",d:"Gelato Gemelli(노비) · Al Bacio(벌리)",dur:"30분"},
      {t:"숙소",k:"stay",d:"브로드비치/서퍼스 · <b>미정</b>"}],
-  7:[{t:"아침",k:"run",d:"오션웨이 일출 러닝 + <a href='https://bskt.com.au/' target='_blank' rel='noopener'>BSKT</a> 커피"},
-     {t:"오전",k:"act",d:"커럼빈 야생동물 보호구역 — 코알라 안기",s:"⭐ 코알라 안기 — 운영 09:00~16:00, 3~5시간 소요"},
-     {t:"점심",k:"eat",d:"<b>점심 — 후보</b>",s:"벌리헤즈 카페(브런치) · 커럼빈 인근 피쉬앤칩스"},
-     {t:"오후",k:"water",d:"해변 여유·물놀이"},
-     {t:"디저트",k:"dessert",d:"Al Bacio 젤라또(벌리) — 수제 이탈리안"},
-     {t:"저녁",k:"eat",d:"<b>저녁 — 후보</b>",s:"브로드비치 레스토랑가 — 시푸드(머드크랩·모튼베이버그)/스테이크 · 퍼시픽페어 다이닝"},
+  7:[{t:"06:00",k:"run",d:"오션웨이 일출 러닝 + <a href='https://bskt.com.au/' target='_blank' rel='noopener'>BSKT</a> 커피",dur:"1h"},
+     {t:"09:00",k:"move",d:"서퍼스 → 커럼빈",dur:"25분"},
+     {t:"09:30",k:"act",d:"커럼빈 야생동물 보호구역 — 코알라 안기",dur:"3~4h",s:"⭐ 코알라 안기 — 운영 09:00~16:00"},
+     {t:"13:30",k:"eat",d:"<b>점심 — 후보</b>",dur:"1h",s:"벌리헤즈 카페(브런치) · 커럼빈 인근 피쉬앤칩스"},
+     {t:"15:00",k:"water",d:"해변 여유·물놀이",dur:"2.5h"},
+     {t:"18:00",k:"dessert",d:"Al Bacio 젤라또(벌리) — 수제 이탈리안",dur:"30분"},
+     {t:"19:00",k:"eat",d:"<b>저녁 — 후보</b>",dur:"1.5h",s:"브로드비치 레스토랑가 — 시푸드(머드크랩·모튼베이버그)/스테이크 · 퍼시픽페어 다이닝"},
      {t:"숙소",k:"stay",d:"브로드비치/서퍼스 · <b>미정</b>"}],
-  8:[{t:"아침",k:"move",d:"힌터랜드 투어 픽업"},
-     {t:"오전",k:"act",d:"마운트 탬보린 셀러도어(선택) → 스프링브룩"},
-     {t:"점심",k:"eat",d:"탬보린 갤러리워크 — 치즈·커피",s:"후보: 탬보린 마운틴 카페·치즈숍·셀러도어 런치"},
-     {t:"오후",k:"act",d:"스프링브룩 내추럴브리지·폭포·전망대"},
-     {t:"저녁",k:"eat",d:"<b>저녁 — 후보</b>(가볍게)",s:"펍/피쉬앤칩스 — 반딧불이 야간투어로 늦게 끝남"},
-     {t:"밤",k:"act",d:"반딧불이 야간투어",s:"늦게 끝남 → 저녁은 가볍게"},
+  8:[{t:"08:30",k:"move",d:"힌터랜드 투어 픽업",dur:"이동 1h"},
+     {t:"10:00",k:"act",d:"마운트 탬보린 셀러도어(선택) → 스프링브룩",dur:"2h"},
+     {t:"12:30",k:"eat",d:"탬보린 갤러리워크 — 치즈·커피",dur:"1h",s:"후보: 탬보린 마운틴 카페·치즈숍·셀러도어 런치"},
+     {t:"14:00",k:"act",d:"스프링브룩 내추럴브리지·폭포·전망대",dur:"3h"},
+     {t:"17:30",k:"eat",d:"<b>저녁 — 후보</b>(가볍게)",dur:"1h",s:"펍/피쉬앤칩스 — 반딧불이 야간투어로 늦게 끝남"},
+     {t:"19:30",k:"act",d:"반딧불이 야간투어",dur:"2h",s:"늦게 끝남 → 저녁은 가볍게"},
      {t:"숙소",k:"stay",d:"브로드비치/서퍼스 · <b>미정</b>"}],
-  9:[{t:"오전",k:"water",d:"<b>웨이브브레이크 스노클</b>(메인비치 마리나, 약 4h)",s:"초보 OK·강습 포함, 운 좋으면 거북·돌고래 · 고래크루즈 빼고 여유"},
-     {t:"점심",k:"eat",d:"<b>점심 — 후보</b>",s:"메인비치 카페(브런치·바라문디) · 더 스핏 피쉬앤칩스"},
-     {t:"오후",k:"free",d:"메인비치·더 스핏 여유"},
-     {t:"저녁",k:"eat",d:"<b><a href='https://www.georgesparagon.com.au/sanctuarycove' target='_blank' rel='noopener'>George's Paragon</a></b>(생츄어리코브) — 해산물 <span class='rsv'>예약필요</span>"},
-     {t:"디저트",k:"dessert",d:"Gelato Gemelli(노비비치)"},
+  9:[{t:"08:30",k:"move",d:"서퍼스 → 메인비치 마리나",dur:"15분"},
+     {t:"09:00",k:"water",d:"<b>웨이브브레이크 스노클</b> 투어",dur:"4h",s:"초보 OK·강습 포함, 운 좋으면 거북·돌고래 · 고래크루즈 빼고 여유"},
+     {t:"13:30",k:"eat",d:"<b>점심 — 후보</b>",dur:"1h",s:"메인비치 카페(브런치·바라문디) · 더 스핏 피쉬앤칩스"},
+     {t:"15:00",k:"free",d:"메인비치·더 스핏 여유",dur:"2.5h"},
+     {t:"18:30",k:"move",d:"메인비치 → 생츄어리코브",dur:"25분"},
+     {t:"19:00",k:"eat",d:"<b><a href='https://www.georgesparagon.com.au/sanctuarycove' target='_blank' rel='noopener'>George's Paragon</a></b>(생츄어리코브) — 해산물 <span class='rsv'>예약필요</span>",dur:"1.5h"},
      {t:"숙소",k:"stay",d:"브로드비치/서퍼스 · <b>미정</b>"}],
-  10:[{t:"아침",k:"move",d:"서퍼스→브리즈번 80km · 1h"},
-     {t:"오전",k:"act",d:"마운트 쿠사 전망대 — 시티 파노라마"},
-     {t:"점심",k:"eat",d:"<b>점심 — 후보</b>",s:"사우스뱅크 카페(브런치·플랫화이트) · 리버사이드 카페"},
-     {t:"오후",k:"water",d:"사우스뱅크 스트리트비치 물놀이",s:"도심 무료 인공 라군, 수심 얕고 안전요원 상주"},
-     {t:"저녁",k:"eat",d:"<b>저녁 — 후보</b>",s:"사우스뱅크 파크랜드 다이닝 — 피자/그릴(리버뷰) · 시푸드"},
-     {t:"디저트",k:"dessert",d:"라밍턴(퀸즐랜드 유래) · <a href='https://gelatomessina.com/' target='_blank' rel='noopener'>Gelato Messina</a>(브리즈번)"},
+  10:[{t:"09:00",k:"move",d:"서퍼스 → 브리즈번",dur:"이동 1h"},
+     {t:"10:30",k:"act",d:"마운트 쿠사 전망대 — 시티 파노라마",dur:"1.5h"},
+     {t:"12:30",k:"eat",d:"<b>점심 — 후보</b>",dur:"1h",s:"사우스뱅크 카페(브런치·플랫화이트) · 리버사이드 카페"},
+     {t:"14:00",k:"water",d:"사우스뱅크 스트리트비치 물놀이",dur:"2.5h",s:"도심 무료 인공 라군, 수심 얕고 안전요원 상주"},
+     {t:"17:00",k:"free",d:"사우스뱅크 파크랜드 산책",dur:"1h"},
+     {t:"18:30",k:"eat",d:"<b>저녁 — 후보</b>",dur:"1.5h",s:"사우스뱅크 파크랜드 다이닝 — 피자/그릴(리버뷰) · 시푸드"},
+     {t:"20:00",k:"dessert",d:"라밍턴 · <a href='https://gelatomessina.com/' target='_blank' rel='noopener'>Gelato Messina</a>(브리즈번)",dur:"30분"},
      {t:"숙소",k:"stay",d:"사우스뱅크/센트럴 · <b>미정</b>"}],
-  11:[{t:"아침",k:"run",d:"리버워크 러닝 + 웨스트엔드 <a href='https://blackstarcoffee.com.au/' target='_blank' rel='noopener'>Blackstar</a> 커피"},
-     {t:"오전",k:"shop",d:"<b>퀸스트리트몰·마이어센터</b> 쇼핑",s:"퀸스트리트몰 — 브리즈번 최대 쇼핑가"},
-     {t:"점심",k:"eat",d:"<b>점심 — 후보</b>",s:"웨스트엔드 브런치 카페 · 퀸스트리트 푸드코트"},
-     {t:"오후",k:"free",d:"시티홀·강변 여유",s:"체력·날씨 좋으면 스트라드브로크(모래언덕)로 대체"},
-     {t:"저녁",k:"eat",d:"<b><a href='https://www.chachachar.com.au/' target='_blank' rel='noopener'>Cha Cha Char</a></b> — 강변 스테이크, 마지막 밤 <span class='rsv'>예약필요</span>"},
+  11:[{t:"06:00",k:"run",d:"리버워크 러닝 + 웨스트엔드 <a href='https://blackstarcoffee.com.au/' target='_blank' rel='noopener'>Blackstar</a> 커피",dur:"1h"},
+     {t:"09:30",k:"shop",d:"<b>퀸스트리트몰·마이어센터</b> 쇼핑",dur:"3h",s:"퀸스트리트몰 — 브리즈번 최대 쇼핑가"},
+     {t:"12:30",k:"eat",d:"<b>점심 — 후보</b>",dur:"1h",s:"웨스트엔드 브런치 카페 · 퀸스트리트 푸드코트"},
+     {t:"14:00",k:"free",d:"시티홀·강변 여유",dur:"3h",s:"체력·날씨 좋으면 스트라드브로크(모래언덕)로 대체"},
+     {t:"18:30",k:"eat",d:"<b><a href='https://www.chachachar.com.au/' target='_blank' rel='noopener'>Cha Cha Char</a></b> — 강변 스테이크, 마지막 밤 <span class='rsv'>예약필요</span>",dur:"2h"},
      {t:"숙소",k:"stay",d:"센트럴(새벽 출국 동선 우선) · <b>미정</b>"}],
-  12:[{t:"새벽",k:"move",d:"공항 이동(Airtrain/택시)"},
-     {t:"아침",k:"move",d:"BNE 08:40 출발 → ICN 17:35 도착"}]
+  12:[{t:"05:30",k:"move",d:"공항 이동(Airtrain/택시)",dur:"20~30분"},
+     {t:"08:40",k:"move",d:"BNE 출발 → ICN 17:35 도착",dur:"비행 9h55m"}]
 };
 
 /* ===== 이동 구간 데이터 (key = 직전 Day 번호) ===== */
@@ -753,7 +777,7 @@ DAYS.forEach((d,i)=>{
   const KIND={run:'🏃',act:'🎯',water:'🏊',shop:'🛍',move:'🚌',eat:'🍽',dessert:'🍨',free:'🌿',stay:'🏨'};
   const planData = (typeof PLANS!=='undefined') ? PLANS[d.n] : null;
   const plan = planData?`<table class="tl">${planData.map(p=>
-      `<tr class="k-${p.k}"><td class="tlt">${p.t}</td><td class="tlk">${KIND[p.k]||'·'}</td><td class="tld">${p.d}${p.s?`<span class="tsub">${p.s}</span>`:''}</td></tr>`).join('')}</table>`:'';
+      `<tr class="k-${p.k}"><td class="tlt">${p.t}</td><td class="tlk">${KIND[p.k]||'·'}</td><td class="tld">${p.d}${p.dur?` <span class="dur">⏱ ${p.dur}</span>`:''}${p.s?`<span class="tsub">${p.s}</span>`:''}</td></tr>`).join('')}</table>`:'';
 
   let content;
   if(d.options){
