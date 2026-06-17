@@ -213,6 +213,20 @@
   @media(min-width:720px){.gslide{flex:0 0 46%}}
   .cand-sub{font-size:19px;font-weight:900;margin:30px 0 14px;text-align:left}
 
+  /* ===== 일자별 시간대 표 (timeline) ===== */
+  .tl{width:100%;border-collapse:collapse;margin-top:16px;background:#fff;border-radius:14px;
+      overflow:hidden;box-shadow:0 6px 18px rgba(0,0,0,.04);border:1px solid rgba(0,0,0,.06)}
+  .tl tr{border-bottom:1px solid rgba(0,0,0,.05)}
+  .tl tr:last-child{border-bottom:0}
+  .tl td{padding:10px 12px;vertical-align:top;font-size:13.5px}
+  .tl .tlt{white-space:nowrap;font-weight:800;color:var(--muted);font-size:12.5px;width:64px}
+  .tl .tlk{width:22px;text-align:center;font-size:15px}
+  .tl .tld{color:#384150;font-weight:600}
+  .tl .tld b{color:var(--ink);font-weight:800}
+  .tl tr.k-eat{background:#fff7ee}
+  .tl tr.k-stay{background:#f6f7f9}
+  .tl tr.k-stay .tld{color:var(--muted);font-weight:700}
+
   footer{padding:70px 0 100px;text-align:center;color:var(--muted)}
   footer .big{font-size:clamp(26px,4vw,40px);font-weight:900;color:var(--ink);letter-spacing:-.02em}
   footer .sm{margin-top:10px;font-size:14px;font-weight:600}
@@ -454,22 +468,6 @@
     </div>
     <div class="gtrack" id="galTrack">
       <article class="gslide">
-        <div class="gtop g-wine"><div class="ic">🍷</div><div class="gt">헌터밸리 와이너리</div><div class="gloc">시드니 · 북쪽 2.5h</div></div>
-        <div class="gbody"><ul>
-          <li>호주 最古 와인 산지, 시음 + 가든 런치</li>
-          <li><b>포트스테판(Day4)과 같은 북쪽</b> → 묶거나 Day5 택일</li>
-          <li>한인가이드 소그룹 투어 多, 여유로운 하루</li>
-        </ul></div>
-      </article>
-      <article class="gslide">
-        <div class="gtop g-syd"><div class="ic">🌊</div><div class="gt">로열 국립공원</div><div class="gloc">시드니 · 남쪽 1h</div></div>
-        <div class="gbody"><ul>
-          <li>세계 2번째로 오래된 국립공원, 해안 절벽</li>
-          <li>와타몰라·웨딩케이크록·코스트트랙</li>
-          <li>액티브·사진 명소 · Day5 와이너리와 택일</li>
-        </ul></div>
-      </article>
-      <article class="gslide">
         <div class="gtop g-syd"><div class="ic">🤿</div><div class="gt">고든스베이·클로블리 스노클</div><div class="gloc">시드니 · 본다이→쿠지 선상</div></div>
         <div class="gbody"><ul>
           <li>고든스베이 = 시드니 유일 <b>수중 자연 트레일</b>(600m)</li>
@@ -604,6 +602,75 @@ const DAYS = [
    route:"공항 CBD 15km · 20분"}
 ];
 
+/* ===== 일자별 시간대 표 (식당·액티비티·숙소) — 숙소는 미정 ===== */
+const PLANS = {
+  1:[{t:"오전",k:"move",d:"SYD 07:20 도착 → 시티, 호텔 체크인·휴식"},
+     {t:"점심",k:"eat",d:"CBD 카페 — 플랫화이트 + 가벼운 점심"},
+     {t:"오후",k:"shop",d:"<b>CBD 쇼핑</b> — QVB·피트스트리트몰·웨스트필드"},
+     {t:"저녁",k:"eat",d:"<b>Opera Bar</b> — 오이스터+스프리츠, 하버 야경"},
+     {t:"밤",k:"act",d:"오페라하우스·하버브릿지 야경 산책"},
+     {t:"숙소",k:"stay",d:"서큘러키/CBD · <b>미정</b>"}],
+  2:[{t:"아침",k:"run",d:"보타닉가든·미세스 매쿼리 러닝 + Single O 커피"},
+     {t:"오전",k:"act",d:"오페라하우스·보타닉가든·록스"},
+     {t:"점심",k:"eat",d:"<b>Icebergs</b>(본다이) — 모던 이탈리안·오션풀 뷰"},
+     {t:"오후",k:"water",d:"본다이 물놀이 + 본다이→쿠지 코스털 워크"},
+     {t:"저녁",k:"eat",d:"👑 <b>Bennelong</b>(오페라하우스) — 신혼 파인다이닝"},
+     {t:"숙소",k:"stay",d:"서큘러키/CBD · <b>미정</b>"}],
+  3:[{t:"아침",k:"move",d:"블루마운틴 당일투어 픽업(서쪽)"},
+     {t:"오전",k:"act",d:"페더데일 동물원 — 쿼카 셀카·코알라"},
+     {t:"점심",k:"eat",d:"카툼바 — 투어 점심"},
+     {t:"오후",k:"act",d:"블루마운틴 세자매봉·시닉월드·웬트워스 폭포"},
+     {t:"저녁",k:"eat",d:"<b>Rockpool Bar & Grill</b>(CBD) — 월드 톱15 스테이크"},
+     {t:"숙소",k:"stay",d:"서큘러키/CBD · <b>미정</b>"}],
+  4:[{t:"아침",k:"move",d:"포트스테판 당일투어 픽업(북쪽 200km)"},
+     {t:"오전",k:"act",d:"스톡턴 모래사막 샌드보딩"},
+     {t:"점심",k:"eat",d:"포트스테판 — 시푸드/와이너리 런치"},
+     {t:"오후",k:"act",d:"돌핀크루즈"},
+     {t:"저녁",k:"eat",d:"복귀 후 <b>Nick's Seafood</b>(달링하버) — 시푸드 플래터"},
+     {t:"숙소",k:"stay",d:"서큘러키/CBD · <b>미정</b>"}],
+  5:[{t:"아침",k:"move",d:"당일투어 픽업 (택1 방향)"},
+     {t:"오전·오후",k:"act",d:"<b>헌터밸리 와이너리</b> 또는 <b>로열NP</b> (위 카드서 택일)"},
+     {t:"점심",k:"eat",d:"와이너리 가든런치 / 로열NP 도시락"},
+     {t:"저녁",k:"eat",d:"<b>ARIA</b>(서큘러키) — 하버뷰, 시드니 마지막 밤"},
+     {t:"숙소",k:"stay",d:"서큘러키/CBD · <b>미정</b>"}],
+  6:[{t:"아침",k:"move",d:"SYD→OOL 국내선 → 서퍼스 체크인"},
+     {t:"점심",k:"eat",d:"서퍼스 비치프런트 카페"},
+     {t:"오후",k:"water",d:"서퍼스 파라다이스 해수욕·물놀이"},
+     {t:"저녁",k:"eat",d:"<b>Hurricane's Grill</b>(서퍼스) — 폭립·해변뷰 → 벌리헤즈 석양"},
+     {t:"숙소",k:"stay",d:"브로드비치/서퍼스 · <b>미정</b>"}],
+  7:[{t:"아침",k:"run",d:"오션웨이 일출 러닝 + BSKT 커피"},
+     {t:"오전",k:"act",d:"커럼빈 야생동물 보호구역 — 코알라 안기"},
+     {t:"점심",k:"eat",d:"벌리헤즈 — Al Bacio 젤라또·점심"},
+     {t:"오후",k:"water",d:"해변 여유·물놀이"},
+     {t:"저녁",k:"eat",d:"<b>브로드비치 다이닝</b> — 퍼시픽페어 인근"},
+     {t:"숙소",k:"stay",d:"브로드비치/서퍼스 · <b>미정</b>"}],
+  8:[{t:"아침",k:"move",d:"힌터랜드 투어 픽업"},
+     {t:"오전",k:"act",d:"마운트 탬보린 셀러도어(선택) → 스프링브룩"},
+     {t:"점심",k:"eat",d:"탬보린 갤러리워크 — 치즈·커피"},
+     {t:"오후",k:"act",d:"스프링브룩 내추럴브리지·폭포·전망대"},
+     {t:"밤",k:"act",d:"반딧불이 야간투어"},
+     {t:"숙소",k:"stay",d:"브로드비치/서퍼스 · <b>미정</b>"}],
+  9:[{t:"오전",k:"water",d:"<b>웨이브브레이크 스노클</b>(메인비치 마리나, 약 4h)"},
+     {t:"점심",k:"eat",d:"메인비치 카페"},
+     {t:"오후",k:"free",d:"메인비치·더 스핏 여유"},
+     {t:"저녁",k:"eat",d:"<b>George's Paragon</b>(생츄어리코브) — 해산물"},
+     {t:"숙소",k:"stay",d:"브로드비치/서퍼스 · <b>미정</b>"}],
+  10:[{t:"아침",k:"move",d:"서퍼스→브리즈번 80km · 1h"},
+     {t:"오전",k:"act",d:"마운트 쿠사 전망대 — 시티 파노라마"},
+     {t:"점심",k:"eat",d:"사우스뱅크 카페"},
+     {t:"오후",k:"water",d:"사우스뱅크 스트리트비치 물놀이"},
+     {t:"저녁",k:"eat",d:"<b>사우스뱅크 강변 다이닝</b> — 리버뷰"},
+     {t:"숙소",k:"stay",d:"사우스뱅크/센트럴 · <b>미정</b>"}],
+  11:[{t:"아침",k:"run",d:"리버워크 러닝 + 웨스트엔드 Blackstar 커피"},
+     {t:"오전",k:"shop",d:"<b>퀸스트리트몰·마이어센터</b> 쇼핑"},
+     {t:"점심",k:"eat",d:"웨스트엔드 카페/브런치"},
+     {t:"오후",k:"free",d:"시티홀·강변 여유 (또는 스트라드브로크 대체)"},
+     {t:"저녁",k:"eat",d:"<b>Cha Cha Char</b> — 강변 스테이크, 마지막 밤"},
+     {t:"숙소",k:"stay",d:"센트럴(새벽 출국 동선 우선) · <b>미정</b>"}],
+  12:[{t:"새벽",k:"move",d:"공항 이동(Airtrain/택시)"},
+     {t:"아침",k:"move",d:"BNE 08:40 출발 → ICN 17:35 도착"}]
+};
+
 /* ===== 이동 구간 데이터 (key = 직전 Day 번호) ===== */
 const TRANSITS = {
   5:{id:"t-syd-gc", from:"syd", to:"gc", at:5, icon:"✈️",
@@ -669,6 +736,11 @@ DAYS.forEach((d,i)=>{
   let list = d.list?`<ul>${d.list.map(x=>`<li>${x}</li>`).join('')}</ul>`:'';
   const star = d.star?'<span class="star">⭐ </span>':'';
 
+  const KIND={run:'🏃',act:'🎯',water:'🏊',shop:'🛍',move:'🚌',eat:'🍽',free:'🌿',stay:'🏨'};
+  const planData = (typeof PLANS!=='undefined') ? PLANS[d.n] : null;
+  const plan = planData?`<table class="tl">${planData.map(p=>
+      `<tr class="k-${p.k}"><td class="tlt">${p.t}</td><td class="tlk">${KIND[p.k]||'·'}</td><td class="tld">${p.d}</td></tr>`).join('')}</table>`:'';
+
   let content;
   if(d.options){
     const slides = d.options.map(o=>{
@@ -686,11 +758,12 @@ DAYS.forEach((d,i)=>{
       <div class="opt-head"><span class="opt-tag">둘 중 택일 — 넘겨서 비교</span>
         <div class="gn"><button class="gnav" data-opt="prev" aria-label="이전">‹</button><button class="gnav" data-opt="next" aria-label="다음">›</button></div>
       </div>
-      <div class="otrack">${slides}</div>`;
+      <div class="otrack">${slides}</div>
+      ${plan}${list}`;
   } else {
     content=`<p class="desc">${d.desc}</p>
       <span class="route">📍 ${d.route}</span>
-      ${list}`;
+      ${plan}${list}`;
   }
 
   const body=`<div class="day-body">
