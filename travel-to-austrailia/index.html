@@ -323,9 +323,9 @@
       <li>숙소 예약 — 서큘러키 / 브로드비치 / 사우스뱅크</li>
       <li>레스토랑 예약 <span class="tag">예약필요</span>
         <ul class="sub">
-          <li>Day2 Bennelong · Icebergs</li>
-          <li>Day3 Rockpool · Day4 Nick's Seafood</li>
-          <li>Day5 ARIA · Day6 Hurricane's Grill</li>
+          <li>Day2 Nick's Seafood · Icebergs</li>
+          <li>Day3 Rockpool (Day4는 숙소 홈쿡)</li>
+          <li>Day5 Bennelong 또는 ARIA (택1) · Day6 Hurricane's Grill</li>
           <li>Day9 George's Paragon · Day11 Cha Cha Char</li>
         </ul>
       </li>
@@ -645,7 +645,7 @@ const DAYS = [
   {n:2, c:"syd", city:"시드니", date:"10.08 (목)", title:"시티 + 본다이 물놀이 · 코스털 워크",
    desc:"오페라하우스·보타닉가든·록스, 오후엔 본다이 해수욕·아이스버그 오션풀 후 본다이→쿠지 절벽 해안길.", route:"시티 도보 / 본다이 버스 30분 / 워크 6km",
    img:R+"시드니 본다이 쿠지 코스탈워크.jpeg", cap:"본다이→쿠지 코스탈 워크 (브론테 인근 해안길) · Wikimedia Commons",
-   list:["🏊 10월 수온 ~18도로 차가움 → 가벼운 물놀이·오션풀 위주","저녁은 Bennelong (오페라하우스 돛 내부) — 신혼 파인다이닝"]},
+   list:["🏊 10월 수온 ~18도로 차가움 → 가벼운 물놀이·오션풀 위주","저녁은 Nick's Seafood(달링하버) — 시푸드 플래터"]},
   {n:3, c:"syd", city:"시드니", date:"10.09 (금)", star:true, title:"블루마운틴 + 페더데일 (쿼카)",
    desc:"세자매봉·시닉월드·웬트워스 폭포, 길목의 페더데일 동물원에서 쿼카 셀카·코알라 쓰다듬기.",
    route:"시티→페더데일 40km → 블루마운틴 +60km (한 동선)",
@@ -656,7 +656,7 @@ const DAYS = [
    desc:"드넓은 모래사막 샌드보딩 + 돌핀크루즈. 당일투어 권장.",
    route:"시티 북쪽 200km · 2.5h (당일투어)",
    img:R+"시드니 포트스테판 모래썰매.jpg", cap:"스톡턴 모래사막 썰매",
-   list:["옷·신발 구멍으로 모래 다 들어옴 → 꽁꽁 싸매기"]},
+   list:["옷·신발 구멍으로 모래 다 들어옴 → 꽁꽁 싸매기","저녁은 숙소서 홈쿡(투어 늦은 복귀)"]},
   {n:5, c:"syd", city:"시드니", date:"10.11 (일)", title:"노스 시드니 — 휴식 · 하버 조망",
    desc:"근교 투어 3일 뒤 시드니 마지막 날은 노스 시드니에서 푹 쉬며 재충전. 키리빌리·라벤더베이·블루스포인트에서 하버 산책, 카페·해변에서 여유롭게.",
    route:"하버브릿지 북안 · 페리/도보 (시티서 가까움)",
@@ -715,7 +715,7 @@ const PLANS = {
      {t:"12:00",k:"eat",d:"<b><a href='https://idrb.com/' target='_blank' rel='noopener'>Icebergs</a></b>(본다이) — 오션풀 뷰 <span class='rsv'>예약필요</span>",dur:"1.5h"},
      {t:"13:30",k:"water",d:"본다이 물놀이 + 본다이→쿠지 코스털 워크",dur:"3h",s:"수온 ~18도 가벼운 물놀이 · 워크 6km"},
      {t:"17:00",k:"move",d:"본다이 → 시티",dur:"30분"},
-     {t:"18:30",k:"eat",d:"👑 <b><a href='https://www.bennelong.com.au/' target='_blank' rel='noopener'>Bennelong</a></b>(오페라하우스) — 신혼 파인다이닝 <span class='rsv'>예약필요</span>",dur:"2h",s:"수주~한 달 전 예약 필수"},
+     {t:"18:30",k:"eat",d:"<b><a href='https://www.nicksgroup.com.au/venue/nicks-seafood-restaurant/' target='_blank' rel='noopener'>Nick's Seafood</a></b>(달링하버) — 시푸드 플래터 <span class='rsv'>예약필요</span>",dur:"1.5h",s:"2인 플래터 ~$195 · 본다이 물놀이 후 달링하버 저녁"},
      {t:"20:30",k:"dessert",d:"<a href='https://gelatomessina.com/' target='_blank' rel='noopener'>Gelato Messina</a>(서큘러키)",dur:"30분"},
      {t:"숙소",k:"stay",d:"<b>Zara Tower</b>(61-65 Wentworth Ave, CBD) · 1BR 취사형 아파트"}],
   3:[{t:"07:00",k:"move",d:"투어 픽업(시티) → 페더데일",dur:"이동 45분"},
@@ -732,7 +732,7 @@ const PLANS = {
      {t:"12:30",k:"eat",d:"<b>점심 — 후보</b>",dur:"1h",s:"포트스테판 시푸드(모튼베이버그·피쉬앤칩스) · 와이너리 런치(투어 포함 시)"},
      {t:"14:00",k:"act",d:"돌핀크루즈",dur:"1.5h"},
      {t:"16:00",k:"move",d:"포트스테판 → 시티",dur:"이동 2.5h"},
-     {t:"19:00",k:"eat",d:"<b><a href='https://www.nicksgroup.com.au/venue/nicks-seafood-restaurant/' target='_blank' rel='noopener'>Nick's Seafood</a></b>(달링하버) — 시푸드 플래터 <span class='rsv'>예약필요</span>",dur:"1.5h"},
+     {t:"19:00",k:"eat",d:"🍳 <b>숙소서 홈쿡 디너</b>",dur:"1.5h",s:"Zara Tower 취사형 주방 · 포트스테판 투어로 늦게 복귀, 장본 재료로 간단히 · 요리 시 환기"},
      {t:"숙소",k:"stay",d:"<b>Zara Tower</b>(61-65 Wentworth Ave, CBD) · 1BR 취사형 아파트"}],
   5:[{t:"09:00",k:"free",d:"늦은 조식·느긋한 아침",dur:"여유",s:"근교 투어 3일 뒤 회복일 — 알람 없이"},
      {t:"10:30",k:"move",d:"하버브릿지 북안 — 페리/도보로 노스 시드니",dur:"이동 15~30분"},
