@@ -355,7 +355,7 @@
   <div class="todo-body">
     <table class="cost-table" id="costTable"></table>
     <div class="cost-total"><span>현재 사용 합계</span><b id="costSpent">—</b></div>
-    <p class="cost-note">* 이훈정 항공권은 김관유 영수증(1,407,100원) 기준 동일 여정 추정치입니다. 실제 결제액 확인 후 갱신하세요.<br>현재 합계는 결제 완료 항목만 포함하며, 미정 항목은 금액을 채우면 자동 합산됩니다.</p>
+    <p class="cost-note">* 이훈정 항공권은 김관유 영수증(1,407,100원) 기준 동일 여정 추정치입니다. 실제 결제액 확인 후 갱신하세요.<br>* 시드니 숙소(Zara Tower)는 A$1,781.25를 1 AUD≈900원으로 환산(≈1,603,125원). 결제는 체크인 시.<br>현재 합계는 결제 완료 항목만 포함하며, 미정 항목은 금액을 채우면 자동 합산됩니다.</p>
   </div>
 </aside>
 
@@ -551,9 +551,22 @@
   <!-- ===== 숙소 후보 ===== -->
   <section class="food" id="stay">
     <h2>🏨 숙소 후보</h2>
-    <p class="lead">전부 <b>미정</b> · 가격은 2026.10 기준 추정(변동성 큼 → 예약 시 재확인)</p>
+    <p class="lead">시드니 <b>Zara Tower 예약 완료 ✅</b> · 골드코스트·브리즈번은 미정(가격 추정, 예약 시 재확인)</p>
 
-    <h3 class="cand-sub">시드니 — 5박 (거점: 서큘러키/CBD)</h3>
+    <h3 class="cand-sub">시드니 — 5박 ✅ 예약 완료</h3>
+    <div class="food-grid">
+      <div class="fcard">
+        <h4>✅ <a href="https://zarahotel.au" target="_blank" rel="noopener">Zara Tower</a> — 예약 완료</h4>
+        <ul>
+          <li><b>위치</b> <span>61-65 Wentworth Ave, CBD(하이드파크·센트럴 인근)</span></li>
+          <li><b>객실</b> <span>One Bedroom Apartment · 1 King · 취사형</span></li>
+          <li><b>5박</b> <span>10.7~10.12 · 총 A$1,781.25(≈160만원) · 1박 A$356</span></li>
+          <li><b>편의</b> <span>무료 WiFi · 체크인 시 결제(취소 2일 전까지 무료)</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 class="cand-sub">시드니 — 검토했던 후보 (참고)</h3>
     <div class="food-grid">
       <div class="fcard">
         <h4>🌊 <a href="https://www.fourseasons.com/sydney/" target="_blank" rel="noopener">Four Seasons Sydney</a></h4>
@@ -694,7 +707,7 @@ const PLANS = {
      {t:"18:30",k:"eat",d:"<b><a href='https://operabar.com.au/' target='_blank' rel='noopener'>Opera Bar</a></b> — 오이스터+스프리츠, 하버 야경",dur:"1.5h",s:"워크인 바(예약 없이) · 해질녘 자리 경쟁"},
      {t:"20:00",k:"dessert",d:"<a href='https://gelatomessina.com/' target='_blank' rel='noopener'>Gelato Messina</a>(달링하버)",dur:"30분"},
      {t:"20:30",k:"act",d:"🌃 오페라하우스·하버브릿지 야경 산책 → <b>옵저버토리 힐</b>",dur:"1h",s:"록스 거쳐 언덕 위로 — 하버브릿지·시티 스카이라인 야경(무료·24시간 개방)"},
-     {t:"숙소",k:"stay",d:"서큘러키/CBD · <b>미정</b>"}],
+     {t:"숙소",k:"stay",d:"<b>Zara Tower</b>(61-65 Wentworth Ave, CBD) · 1BR 취사형 아파트"}],
   2:[{t:"06:00",k:"run",d:"<b>시드니 시내 러닝</b> — 미세스 매쿼리 하버 루프 + <a href='https://singleo.com.au/' target='_blank' rel='noopener'>Single O</a> 커피",dur:"5km·1h"},
      {t:"09:00",k:"act",d:"오페라하우스·보타닉가든·록스",dur:"2.5h"},
      {t:"11:30",k:"move",d:"시티 → 본다이",dur:"버스 30분"},
@@ -703,7 +716,7 @@ const PLANS = {
      {t:"17:00",k:"move",d:"본다이 → 시티",dur:"30분"},
      {t:"18:30",k:"eat",d:"👑 <b><a href='https://www.bennelong.com.au/' target='_blank' rel='noopener'>Bennelong</a></b>(오페라하우스) — 신혼 파인다이닝 <span class='rsv'>예약필요</span>",dur:"2h",s:"수주~한 달 전 예약 필수"},
      {t:"20:30",k:"dessert",d:"<a href='https://gelatomessina.com/' target='_blank' rel='noopener'>Gelato Messina</a>(서큘러키)",dur:"30분"},
-     {t:"숙소",k:"stay",d:"서큘러키/CBD · <b>미정</b>"}],
+     {t:"숙소",k:"stay",d:"<b>Zara Tower</b>(61-65 Wentworth Ave, CBD) · 1BR 취사형 아파트"}],
   3:[{t:"07:00",k:"move",d:"투어 픽업(시티) → 페더데일",dur:"이동 45분"},
      {t:"08:00",k:"act",d:"페더데일 동물원 — 쿼카 셀카·코알라",dur:"1.5h",s:"⭐ 쿼카 인카운터 사전 예약 필수 · NSW 코알라 안기 금지(쓰다듬기 OK)"},
      {t:"10:00",k:"move",d:"페더데일 → 블루마운틴",dur:"이동 1h"},
@@ -712,21 +725,21 @@ const PLANS = {
      {t:"14:00",k:"act",d:"웬트워스 폭포·전망",dur:"2h"},
      {t:"17:30",k:"move",d:"블루마운틴 → 시티",dur:"이동 1.5h"},
      {t:"19:30",k:"eat",d:"<b><a href='https://rockpoolbarandgrill.com.au/' target='_blank' rel='noopener'>Rockpool Bar & Grill</a></b>(CBD) — 월드 톱15 스테이크 <span class='rsv'>예약필요</span>",dur:"1.5h"},
-     {t:"숙소",k:"stay",d:"서큘러키/CBD · <b>미정</b>"}],
+     {t:"숙소",k:"stay",d:"<b>Zara Tower</b>(61-65 Wentworth Ave, CBD) · 1BR 취사형 아파트"}],
   4:[{t:"07:00",k:"move",d:"투어 픽업 → 포트스테판(북쪽 200km)",dur:"이동 2.5h"},
      {t:"10:00",k:"act",d:"스톡턴 모래사막 샌드보딩",dur:"2h",s:"옷·신발 구멍으로 모래 다 들어옴 → 꽁꽁 싸매기"},
      {t:"12:30",k:"eat",d:"<b>점심 — 후보</b>",dur:"1h",s:"포트스테판 시푸드(모튼베이버그·피쉬앤칩스) · 와이너리 런치(투어 포함 시)"},
      {t:"14:00",k:"act",d:"돌핀크루즈",dur:"1.5h"},
      {t:"16:00",k:"move",d:"포트스테판 → 시티",dur:"이동 2.5h"},
      {t:"19:00",k:"eat",d:"<b><a href='https://www.nicksgroup.com.au/venue/nicks-seafood-restaurant/' target='_blank' rel='noopener'>Nick's Seafood</a></b>(달링하버) — 시푸드 플래터 <span class='rsv'>예약필요</span>",dur:"1.5h"},
-     {t:"숙소",k:"stay",d:"서큘러키/CBD · <b>미정</b>"}],
+     {t:"숙소",k:"stay",d:"<b>Zara Tower</b>(61-65 Wentworth Ave, CBD) · 1BR 취사형 아파트"}],
   5:[{t:"09:00",k:"free",d:"늦은 조식·느긋한 아침",dur:"여유",s:"근교 투어 3일 뒤 회복일 — 알람 없이"},
      {t:"10:30",k:"move",d:"하버브릿지 북안 — 페리/도보로 노스 시드니",dur:"이동 15~30분"},
      {t:"11:00",k:"act",d:"<b>키리빌리·라벤더베이·블루스포인트</b> 하버뷰 산책",dur:"2h",s:"오페라하우스·하버브릿지 정면 뷰 · Wendy's Secret Garden · 루나파크"},
      {t:"13:00",k:"eat",d:"<b>점심 — 노스 시드니/키리빌리 카페</b>",dur:"1.5h",s:"하버뷰 브런치·시푸드"},
      {t:"15:00",k:"free",d:"<b>발모랄 비치</b> 또는 하버뷰 카페서 휴식",dur:"2~3h",s:"무리 X · 마지막 날 재충전"},
      {t:"19:00",k:"eat",d:"<b><a href='https://ariasydney.com.au/' target='_blank' rel='noopener'>ARIA</a></b>(서큘러키) — 하버뷰, 시드니 마지막 밤 <span class='rsv'>예약필요</span>",dur:"2h"},
-     {t:"숙소",k:"stay",d:"서큘러키/CBD · <b>미정</b>"}],
+     {t:"숙소",k:"stay",d:"<b>Zara Tower</b>(61-65 Wentworth Ave, CBD) · 1BR 취사형 아파트"}],
   6:[{t:"08:00",k:"move",d:"SYD→OOL 국내선",dur:"비행 1.5h"},
      {t:"10:30",k:"move",d:"공항 → 서퍼스 체크인",dur:"이동 25분"},
      {t:"12:30",k:"eat",d:"<b>점심 — 후보</b>",dur:"1h",s:"서퍼스 비치프런트 카페(브런치·바라문디) · 피쉬앤칩스"},
@@ -992,7 +1005,9 @@ const COSTS=[
   {item:"항공권 — 김관유", sub:"대한항공 왕복 KE401/KE408", amount:1407100, status:"지출 완료"},
   {item:"항공권 — 이훈정", sub:"대한항공 왕복 (동일 여정·추정)", amount:1407100, status:"지출 완료"},
   {item:"국내선 SYD→OOL", sub:"2인, Day 6", amount:null, status:"예약 전"},
-  {item:"숙소", sub:"시드니5 · 골코4 · 브리즈번2 (11박)", amount:null, status:"예약 전"},
+  {item:"숙소 — 시드니", sub:"Zara Tower 1BR 아파트 · 5박(10.7~10.12) · A$1,781.25", amount:1603125, status:"예약 완료"},
+  {item:"숙소 — 골드코스트", sub:"브로드비치/서퍼스 · 4박", amount:null, status:"예약 전"},
+  {item:"숙소 — 브리즈번", sub:"사우스뱅크/센트럴 · 2박", amount:null, status:"예약 전"},
   {item:"핵심 액티비티", sub:"쿼카·코알라·모래썰매·블루마운틴·고래", amount:null, status:"예약 전"},
   {item:"레스토랑", sub:"파인다이닝 등", amount:null, status:"예약 전"},
   {item:"여행자보험", sub:"2인", amount:null, status:"예약 전"},
