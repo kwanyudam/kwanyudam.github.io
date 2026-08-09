@@ -22,6 +22,6 @@ Technical writings, programming projects, and development resources. Sharing my 
 
 Insights and notes on leadership, team management, and organizational development. Reflections on building and managing effective teams.
 
-### [Travel — Australia 🇦🇺](/travel-to-austrailia/)
+### [Travel — Australia 🇦🇺](/travel-to-australia/)
 
 호주 신혼여행 일정표 (2026.10.06 – 10.18) — 시드니 · 골드코스트 · 브리즈번 12박 13일. 일자별 타임라인, 식도락, 숙소, 준비 TODO와 예산.
