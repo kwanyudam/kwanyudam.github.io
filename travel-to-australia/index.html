@@ -322,7 +322,7 @@
       <li>숙소 예약 — 서큘러키 / 브로드비치 / 사우스뱅크</li>
       <li>레스토랑 예약 <span class="tag">예약필요</span>
         <ul class="sub">
-          <li>Day2 Nick's Seafood (Harry's Bondi 점심은 워크인 OK)</li>
+          <li>Day2 저녁 Chin Chin(숙소 도보 3분) — 후보 확정 시 예약</li>
           <li>Day3 Rockpool (Day4는 숙소 홈쿡)</li>
           <li>Day5 ARIA ✅ 예약완료(6PM) · Day6 Hurricane's Grill</li>
           <li>Day9 George's Paragon · Day11 Cha Cha Char</li>
@@ -429,7 +429,7 @@
         <ul>
           <li><b>모튼베이버그·머드크랩</b> <span>— George's Paragon(골코)·브리즈번 시푸드</span></li>
           <li><b>시드니 록 오이스터</b> <span>— Opera Bar·피쉬마켓·ARIA</span></li>
-          <li><b>시푸드 플래터</b> <span>— Nick's Seafood(달링하버 2인~$195)</span></li>
+          <li><b>라이브 랍스터·머드크랩</b> <span>— <a href="https://royalpalace.au/" target="_blank" rel="noopener">Royal Palace</a>(차이나타운, 숙소 도보 12분)</span></li>
           <li><b>피쉬앤칩스</b> <span>— 해변 포장이 제맛</span></li>
         </ul>
       </div>
@@ -447,7 +447,7 @@
         <ul>
           <li><b><a href="https://ariasydney.com.au/" target="_blank" rel="noopener">ARIA</a></b> <span>— 서큘러키, 하버뷰 파인다이닝</span> <span class="rsv">예약필요</span></li>
           <li><b><a href="https://operabar.com.au/" target="_blank" rel="noopener">Opera Bar</a></b> <span>— 오이스터+스프리츠, 해질녘 뷰</span></li>
-          <li><b><a href="https://www.nicksgroup.com.au/venue/nicks-seafood-restaurant/" target="_blank" rel="noopener">Nick's Seafood</a></b> <span>— 달링하버 시푸드 플래터</span> <span class="rsv">예약필요</span></li>
+          <li><b><a href="https://chinchinsydney.com.au/" target="_blank" rel="noopener">Chin Chin</a></b> <span>— 숙소 도보 3분, 태국(Day2 저녁 1순위)</span></li>
           <li><b><a href="https://theharrysfamily.com.au/harrysbondi" target="_blank" rel="noopener">Harry's Bondi</a></b> <span>— 노스본다이 동네 브런치, 메인 $20~27 (Day2 점심)</span></li>
         </ul>
       </div>
@@ -644,7 +644,7 @@ const DAYS = [
   {n:2, c:"syd", city:"시드니", date:"10.08 (목)", title:"시티 + 본다이 물놀이 · 코스털 워크",
    desc:"오전은 느긋하게 시작해 오페라하우스·보타닉가든·록스, 오후엔 본다이 해수욕·아이스버그 오션풀 후 본다이→쿠지 절벽 해안길. 종점 쿠지에서 숙소로 돌아와 샤워하고 저녁.", route:"시티 도보 / 본다이 버스 30분 / 워크 6km / 쿠지→숙소 버스 45분",
    img:R+"시드니 본다이 쿠지 코스탈워크.jpeg", cap:"본다이→쿠지 코스탈 워크 (브론테 인근 해안길) · Wikimedia Commons",
-   list:["🏊 10월 수온 ~18도로 차가움 → 가벼운 물놀이·오션풀 위주","🍳 점심은 Harry's Bondi(노스본다이) — 아이스버그는 세트 $130~155pp라 제외, 파인다이닝은 Day5 ARIA 한 번으로","저녁은 Nick's Seafood(달링하버) — 시푸드 플래터"]},
+   list:["🏊 10월 수온 ~18도로 차가움 → 가벼운 물놀이·오션풀 위주","🍳 점심은 Harry's Bondi(노스본다이) — 아이스버그는 세트 $130~155pp라 제외, 파인다이닝은 Day5 ARIA 한 번으로","🍽 저녁은 숙소 도보권으로 — 쿠지서 45분 버스 + 물놀이 피로 감안, Chin Chin(도보 3분)·Chat Thai·Royal Palace 중 택1"]},
   {n:3, c:"syd", city:"시드니", date:"10.09 (금)", star:true, title:"블루마운틴 + 페더데일 (쿼카)",
    desc:"세자매봉·시닉월드·웬트워스 폭포, 길목의 페더데일 동물원에서 쿼카 셀카·코알라 쓰다듬기.",
    route:"시티→페더데일 40km → 블루마운틴 +60km (한 동선)",
@@ -715,8 +715,8 @@ const PLANS = {
      {t:"13:30",k:"water",d:"본다이 물놀이 + 본다이→쿠지 코스털 워크",dur:"3h",s:"노스본다이 → 해변 따라 남쪽 1.2km 걸어 아이스버그(워크 시작점)로 · 수온 ~18도 가벼운 물놀이 · 워크 6km"},
      {t:"17:00",k:"move",d:"<b>쿠지</b> → 숙소 (코스털 워크 종점은 쿠지)",dur:"버스 373/372·45분"},
      {t:"17:45",k:"free",d:"🚿 숙소서 샤워·환복",dur:"45분",s:"바닷물·모래 씻고 저녁 채비 — 숙소가 시티 한가운데라 경유가 쉬움"},
-     {t:"18:30",k:"eat",d:"<b><a href='https://www.nicksgroup.com.au/venue/nicks-seafood-restaurant/' target='_blank' rel='noopener'>Nick's Seafood</a></b>(달링하버) — 시푸드 플래터 <span class='rsv'>예약필요</span>",dur:"1.5h",s:"2인 플래터 ~$195 · 본다이 물놀이 후 달링하버 저녁"},
-     {t:"20:30",k:"dessert",d:"<a href='https://gelatomessina.com/' target='_blank' rel='noopener'>Gelato Messina</a>(서큘러키)",dur:"30분"},
+     {t:"18:30",k:"eat",d:"<b>저녁 — 숙소 도보권 후보</b>",dur:"1.5h",s:"물놀이 + 6km 워크 후라 멀리 X · <b><a href='https://chinchinsydney.com.au/' target='_blank' rel='noopener'>Chin Chin</a></b>(69 Commonwealth St, <b>도보 3분</b> — 숙소와 같은 Wentworth Ave 모퉁이 · 태국 · 킹피시 사시미·팟타이·마사만 · 예약 권장) · <b><a href='https://www.chatthai.com.au/ct_branches/thaitown/' target='_blank' rel='noopener'>Chat Thai</a></b>(20 Campbell St, 도보 8분 · 1인 $40 이하 · 22시까지 · 워크인) · <b><a href='https://royalpalace.au/' target='_blank' rel='noopener'>Royal Palace Seafood</a></b>(393 Sussex St, 도보 12분 · Golden Century 자리 · 셰프햇 · 라이브 랍스터·머드크랩 — 시푸드 살리고 싶을 때)"},
+     {t:"20:30",k:"dessert",d:"<a href='https://gelatomessina.com/' target='_blank' rel='noopener'>Gelato Messina</a>(서리힐스 389 Crown St · 또는 달링스퀘어)",dur:"30분",s:"서큘러키 지점 대신 숙소 도보권 지점으로"},
      {t:"숙소",k:"stay",d:"<b>Zara Tower</b>(61-65 Wentworth Ave, CBD) · 1BR 취사형 아파트"}],
   3:[{t:"07:00",k:"move",d:"투어 픽업(시티) → 페더데일",dur:"이동 45분"},
      {t:"08:00",k:"act",d:"페더데일 동물원 — 쿼카 셀카·코알라",dur:"1.5h",s:"⭐ 쿼카 인카운터 사전 예약 필수 · NSW 코알라 안기 금지(쓰다듬기 OK)"},
